@@ -1,0 +1,62 @@
+[29-May-2018 01:17:22 UTC] PHP Fatal error:  Class 'FPDF' not found in /home/carexidc/public_html/rental/base/controllers/Report.php on line 113
+[29-May-2018 01:24:00 UTC] PHP Fatal error:  Call to undefined method Pdf::setPrintHeader() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 115
+[29-May-2018 01:24:22 UTC] PHP Fatal error:  Call to undefined method Pdf::setPrintHeader() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 115
+[29-May-2018 01:24:22 UTC] PHP Fatal error:  Call to undefined method Pdf::setPrintHeader() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 115
+[29-May-2018 01:24:23 UTC] PHP Fatal error:  Call to undefined method Pdf::setPrintHeader() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 115
+[29-May-2018 01:24:23 UTC] PHP Fatal error:  Call to undefined method Pdf::setPrintHeader() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 115
+[29-May-2018 01:24:32 UTC] PHP Fatal error:  Call to undefined method Pdf::SetFooterMargin() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 116
+[29-May-2018 01:24:33 UTC] PHP Fatal error:  Call to undefined method Pdf::SetFooterMargin() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 116
+[29-May-2018 01:24:33 UTC] PHP Fatal error:  Call to undefined method Pdf::SetFooterMargin() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 116
+[29-May-2018 01:24:34 UTC] PHP Fatal error:  Call to undefined method Pdf::SetFooterMargin() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 116
+[29-May-2018 01:24:39 UTC] PHP Fatal error:  Call to undefined method Pdf::setImageScale() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 117
+[29-May-2018 01:24:40 UTC] PHP Fatal error:  Call to undefined method Pdf::setImageScale() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 117
+[29-May-2018 01:24:40 UTC] PHP Fatal error:  Call to undefined method Pdf::setImageScale() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 117
+[29-May-2018 01:24:40 UTC] PHP Fatal error:  Call to undefined method Pdf::setImageScale() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 117
+[29-May-2018 01:55:57 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/phpexcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 01:57:26 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/carexidc/public_html/rental/base//third_party/PHPExcel/PHPExcel.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/carexidc/public_html/rental/base/controllers/Report.php on line 109
+[29-May-2018 01:57:27 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/carexidc/public_html/rental/base//third_party/PHPExcel/PHPExcel.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/carexidc/public_html/rental/base/controllers/Report.php on line 109
+[29-May-2018 01:57:27 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/carexidc/public_html/rental/base//third_party/PHPExcel/PHPExcel.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/carexidc/public_html/rental/base/controllers/Report.php on line 109
+[29-May-2018 01:57:28 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/carexidc/public_html/rental/base//third_party/PHPExcel/PHPExcel.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/carexidc/public_html/rental/base/controllers/Report.php on line 109
+[29-May-2018 01:57:28 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/carexidc/public_html/rental/base//third_party/PHPExcel/PHPExcel.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/carexidc/public_html/rental/base/controllers/Report.php on line 109
+[29-May-2018 01:57:28 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/carexidc/public_html/rental/base//third_party/PHPExcel/PHPExcel.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/carexidc/public_html/rental/base/controllers/Report.php on line 109
+[29-May-2018 01:57:48 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/PHPExcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 01:57:49 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/PHPExcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 01:57:49 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/PHPExcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 01:57:49 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/PHPExcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 01:58:01 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/PHPExcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 01:58:47 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/PHPExcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 01:59:10 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/PHPExcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 01:59:11 UTC] PHP Fatal error:  Call to undefined function php_info() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 109
+[29-May-2018 01:59:15 UTC] PHP Fatal error:  Call to undefined function php_info() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 109
+[29-May-2018 01:59:16 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/PHPExcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 02:00:33 UTC] PHP Fatal error:  Class 'ZipArchive' not found in /home/carexidc/public_html/rental/base/third_party/PHPExcel/PHPExcel/Writer/Excel2007.php on line 227
+[29-May-2018 02:06:39 UTC] PHP Fatal error:  Call to a member function setPreCalculateFormulas() on null in /home/carexidc/public_html/rental/base/controllers/Report.php on line 122
+[29-May-2018 02:06:39 UTC] PHP Fatal error:  Call to a member function setPreCalculateFormulas() on null in /home/carexidc/public_html/rental/base/controllers/Report.php on line 122
+[29-May-2018 02:06:39 UTC] PHP Fatal error:  Call to a member function setPreCalculateFormulas() on null in /home/carexidc/public_html/rental/base/controllers/Report.php on line 122
+[29-May-2018 02:07:33 UTC] PHP Fatal error:  Call to a member function setPreCalculateFormulas() on null in /home/carexidc/public_html/rental/base/controllers/Report.php on line 122
+[29-May-2018 02:30:50 UTC] PHP Fatal error:  Call to a member function getStyle() on null in /home/carexidc/public_html/rental/base/controllers/Report.php on line 149
+[29-May-2018 02:30:52 UTC] PHP Fatal error:  Call to a member function getStyle() on null in /home/carexidc/public_html/rental/base/controllers/Report.php on line 149
+[29-May-2018 02:45:02 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style::getDefaultStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:03 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style::getDefaultStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:04 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style::getDefaultStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:18 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style_Borders::setBorderStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:19 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style_Borders::setBorderStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:19 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style_Borders::setBorderStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:31 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style_Borders::setBorderStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:32 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style_Borders::setBorderStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:32 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style_Borders::setBorderStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:32 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style_Borders::setBorderStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:36 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style_Borders::setBorderStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 02:45:36 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Style_Borders::setBorderStyle() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 183
+[29-May-2018 03:00:41 UTC] PHP Fatal error:  Call to undefined method Report::apps() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 190
+[29-May-2018 03:00:42 UTC] PHP Fatal error:  Call to undefined method Report::apps() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 190
+[29-May-2018 03:00:42 UTC] PHP Fatal error:  Call to undefined method Report::apps() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 190
+[29-May-2018 03:00:42 UTC] PHP Fatal error:  Call to undefined method Report::apps() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 190
+[29-May-2018 03:00:43 UTC] PHP Fatal error:  Call to undefined method Report::apps() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 190
+[29-May-2018 03:00:43 UTC] PHP Fatal error:  Call to undefined method Report::apps() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 190
+[01-Jun-2018 03:08:12 UTC] PHP Parse error:  syntax error, unexpected '}', expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/carexidc/public_html/rental/base/views/backend/tenant/form.php on line 95
+[01-Jun-2018 03:08:13 UTC] PHP Parse error:  syntax error, unexpected '}', expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/carexidc/public_html/rental/base/views/backend/tenant/form.php on line 95
+[01-Jun-2018 03:43:50 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Worksheet_HeaderFooter::setRightHeader() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 116
+[01-Jun-2018 03:43:50 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Worksheet_HeaderFooter::setRightHeader() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 116
+[01-Jun-2018 04:04:47 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Worksheet_HeaderFooterDrawing::setImageResource() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 122
+[01-Jun-2018 04:04:47 UTC] PHP Fatal error:  Call to undefined method PHPExcel_Worksheet_HeaderFooterDrawing::setImageResource() in /home/carexidc/public_html/rental/base/controllers/Report.php on line 122

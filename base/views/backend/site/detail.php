@@ -59,7 +59,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">TP Name</label>
+                                <label class="col-sm-4 control-label">Tenant Name</label>
                                 <div class="col-sm-8">
                                     <input type="text" name="tpname" value="<?php echo $data['tpname']; ?>" class="form-control aneh" placeholder="TP Name" disabled>
                                 </div>
@@ -187,18 +187,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Shareable Status</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="shareablestatus" value="<?php echo $data['shareablestatus']; ?>" class="form-control aneh" placeholder="Shareable Status" disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
+                                       
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

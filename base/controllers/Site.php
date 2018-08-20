@@ -187,7 +187,8 @@ class Site extends Dany_Controller
         
         $this->db->where('id_rsite', $id);
         $query = $this->db->delete('rsite_sewa');
-        
+            
+
         $this->db->where('id1', $id);
         $query = $this->db->delete('rsite');
         
@@ -195,7 +196,8 @@ class Site extends Dany_Controller
         {
             $this->session->set_flashdata('error', 'Data berhasil dihapus');
         }else{
-            $this->session->set_flashdata('error', 'Data gagal dihapus');
+            $error = $this->db->error();
+            $this->session->set_flashdata('error', 'Data gagal dihapus <br> '.$error['message']);
         }
         
         redirect('site');
@@ -216,7 +218,7 @@ class Site extends Dany_Controller
         $this->form_validation->set_rules('sitename', 'Site Name', 'required', $error);
         $this->form_validation->set_rules('longitude', 'Longitude', 'required', $error);
         $this->form_validation->set_rules('latitude', 'Latitude', 'required', $error);
-        $this->form_validation->set_rules('buidingheight', 'Buiding Height', 'required', $error);
+        $this->form_validation->set_rules('buidingheight', 'Building Height', 'required', $error);
         $this->form_validation->set_rules('towerheight', 'Tower Height', 'required', $error);
         $this->form_validation->set_rules('availabletowerspace', 'Available Tower Space', 'required', $error);
         $this->form_validation->set_rules('availablegroundspace', 'Available Ground Space', 'required', $error);

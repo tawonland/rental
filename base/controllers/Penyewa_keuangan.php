@@ -12,7 +12,7 @@ class Penyewa_keuangan extends Dany_Controller
     {
         $this->db->select('rsite.id1 as id, rsite_penyewa.id1 as idx, siteid, sitename, operator');
         $this->db->from('rsite');
-        $this->db->join('rsite_penyewa', 'rsite_penyewa.id_rsite = rsite.id1');
+        $this->db->join('rsite_penyewa', 'rsite_penyewa.id_rsite = rsite.id1','left');
         $this->db->where('rsite.id1', $id);
         $this->db->where('rsite_penyewa.id1', $idx);
         $xcek = $this->db->get();

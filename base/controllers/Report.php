@@ -107,6 +107,7 @@ class Report extends Dany_Controller
 	public function export_xls($jenis = '')
 	{
         require_once APPPATH."/third_party/PHPExcel/PHPExcel.php";
+
         if($jenis == 'rental')
         {
             $objPHPExcel = new PHPExcel();
@@ -486,6 +487,9 @@ class Report extends Dany_Controller
             header('Cache-Control: max-age=0');
             $objWriter->save('php://output');
         }else if($jenis == 'rekap'){
+
+            $filter = 'ALL PROJECT';
+
             $objPHPExcel = new PHPExcel();
             $objPHPExcel->setActiveSheetIndex(0);
             $ws = $objPHPExcel->getActiveSheet();
@@ -506,22 +510,29 @@ class Report extends Dany_Controller
             
             $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader("&L& PT. CITRA GAIA\nJl. Manyar Jaya V Blok A-1c SURABAYA\nTelp. 031-5964944 - Fax. 031-5964945");
             
-            $ws->setCellValue('A1', 'DATA DAFTAR SEWA PT. CITRA GAIA');
-            $ws->setCellValue('A2', strtoupper($this->apps->tgl_indo(date('Y-m-d'))).' '.date('H:i:s'));
+            $ws->getStyle( "A5:R5" )->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $ws->getStyle( "A5:R5" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+            $ws->setCellValue('A1', 'ADMINISTRATION REPORT')->mergeCells('A1:C1');
+            $ws->setCellValue('A2', 'PT. CITRA GAIA')->mergeCells('A2:C2');
+            $ws->setCellValue('A3', 'PROJECT : '.$filter)->mergeCells('A3:C3');
+            $ws->setCellValue('A4', 'PERIODE '. date('d/m/Y'))->mergeCells('A3:C3');
             
-            $ws->setCellValue('A4', 'NO');
-            $ws->setCellValue('B4', 'SITE ID');
-            $ws->setCellValue('C4', 'SITE NAME');
-            $ws->setCellValue('D4', 'ADDRESS');
-            $ws->setCellValue('E4', 'JENIS');
-            $ws->setCellValue('F4', 'NAMA');
-            $ws->setCellValue('G4', 'NO. SPK');
-            $ws->setCellValue('H4', 'TYPE SKN');
-            $ws->setCellValue('I4', 'TANGGAL SPL');
-            $ws->setCellValue('J4', 'LEASE START');
-            $ws->setCellValue('K4', 'LEASE END');
-            $ws->setCellValue('L4', 'AKAN BERAKHIR');
-            $ws->setCellValue('M4', 'STATUS');
+            //row 1
+            $ws->setCellValue('A5', 'NO')->mergeCells('A5:A9');
+            $ws->setCellValue('B5', 'OPR')->mergeCells('B5:B9');
+            $ws->setCellValue('C5', 'SITE NAME/LOKASI')->mergeCells('C5:C9');
+            $ws->setCellValue('D5', 'KABUPATEN')->mergeCells('D5:D9');
+            $ws->setCellValue('E5', '')->mergeCells('E5:J5');
+            $ws->setCellValue('K5', '')->mergeCells('K5:R5');
+            $ws->setCellValue('S5', '');
+
+            //row 2
+            $ws->setCellValue('E6', 'PROGRESS')->mergeCells('E6:F6');
+            $ws->setCellValue('G6', 'LAHAN')->mergeCells('G6:K6');
+            $ws->setCellValue('L6', 'SEWA OPERATOR')->mergeCells('L6:O6');
+            $ws->setCellValue('P6', 'OUSTEANDING RENTAL')->mergeCells('P6:S6');
+            $ws->setCellValue('T6', 'HARGA SEWA TOTAL');
             
             $default_border = array(
                 'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -547,23 +558,23 @@ class Report extends Dany_Controller
                 )
             );
             
-            $ws->getStyle('A4')->applyFromArray( $style_headerx );
-            $ws->getStyle('B4')->applyFromArray( $style_headerx );
-            $ws->getStyle('C4')->applyFromArray( $style_headerx );
-            $ws->getStyle('D4')->applyFromArray( $style_headerx );
-            $ws->getStyle('E4')->applyFromArray( $style_headerx );
-            $ws->getStyle('F4')->applyFromArray( $style_headerx );
-            $ws->getStyle('G4')->applyFromArray( $style_headerx );
-            $ws->getStyle('H4')->applyFromArray( $style_headerx );
-            $ws->getStyle('I4')->applyFromArray( $style_headerx );
-            $ws->getStyle('J4')->applyFromArray( $style_headerx );
-            $ws->getStyle('K4')->applyFromArray( $style_headerx );
-            $ws->getStyle('L4')->applyFromArray( $style_headerx );
-            $ws->getStyle('M4')->applyFromArray( $style_headerx );
+            $ws->getStyle('A5')->applyFromArray( $style_headerx );
+            $ws->getStyle('B5')->applyFromArray( $style_headerx );
+            $ws->getStyle('C5')->applyFromArray( $style_headerx );
+            $ws->getStyle('D5')->applyFromArray( $style_headerx );
+            $ws->getStyle('E5')->applyFromArray( $style_headerx );
+            $ws->getStyle('F5')->applyFromArray( $style_headerx );
+            $ws->getStyle('G5')->applyFromArray( $style_headerx );
+            $ws->getStyle('H5')->applyFromArray( $style_headerx );
+            $ws->getStyle('I5')->applyFromArray( $style_headerx );
+            $ws->getStyle('J5')->applyFromArray( $style_headerx );
+            $ws->getStyle('K5')->applyFromArray( $style_headerx );
+            $ws->getStyle('L5')->applyFromArray( $style_headerx );
+            $ws->getStyle('M5')->applyFromArray( $style_headerx );
             
             $this->db->order_by('sitename asc');
             $get = $this->db->get('v_rsite_sewa_akanhabis');
-            $baris = 5;
+            $baris = 9;
             foreach($get->result() as $r)
             {
                 $ws->setCellValue('A'.$baris, $baris-4);
@@ -597,22 +608,24 @@ class Report extends Dany_Controller
                 $baris += 1;
             }
             
-             $ws->getStyle("A5:B".$baris)
+             $ws->getStyle("A".$baris.":B".$baris)
                          ->getAlignment()
                          ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-             $ws->getStyle("E5:E".$baris)
+             $ws->getStyle("E".$baris.":E".$baris)
                          ->getAlignment()
                          ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-             $ws->getStyle("H5:M".$baris)
+             $ws->getStyle("H".$baris.":M".$baris)
                          ->getAlignment()
                          ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
              $ws->getStyle("A1:K4")
                          ->getAlignment()
-                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
                          
             //$ws->mergeCells('A1:M1');
             //$ws->mergeCells('A2:M2');
             $ws->getStyle( "A1:M4" )->getFont()->setBold( true );
+
+            
                         
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

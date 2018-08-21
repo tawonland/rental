@@ -177,6 +177,7 @@ class Site extends Dany_Controller
     
     public function del($id = 0)
     {
+
         $this->db->where('id1', $id);
         $cek = $this->db->get('rsite');
         if($cek->num_rows() != 1)
@@ -187,18 +188,15 @@ class Site extends Dany_Controller
         
         $this->db->where('id_rsite', $id);
         $query = $this->db->delete('rsite_sewa');
-            
-
+        
         $this->db->where('id1', $id);
         $query = $this->db->delete('rsite');
+
+        //ambil status (pesan) penghapusan data
+        $this->load->model('Status_model');          
+        $delStatus = $this->Status_model->deleteStatus();
         
-        if($query)
-        {
-            $this->session->set_flashdata('error', 'Data berhasil dihapus');
-        }else{
-            $error = $this->db->error();
-            $this->session->set_flashdata('error', 'Data gagal dihapus <br> '.$error['message']);
-        }
+        $this->set_flashdata('error', $delStatus['msg']);
         
         redirect('site');
     }

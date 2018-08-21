@@ -7,4 +7,9 @@ class Dany_Controller extends CI_Controller
     {
         parent::__construct();
     }
+
+    public function set_flashdata($data, $value)
+    {
+    	return $this->session->set_flashdata($data, $value);
+    }
 }

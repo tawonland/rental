@@ -494,46 +494,112 @@ class Report extends Dany_Controller
             $objPHPExcel->setActiveSheetIndex(0);
             $ws = $objPHPExcel->getActiveSheet();
             $ws->setTitle('Data');
-            $ws->getColumnDimension('A')->setAutoSize(true);
+
+            //Auto Width
+            //$ws->getColumnDimension('A')->setAutoSize(true);
             $ws->getColumnDimension('B')->setAutoSize(true);
             $ws->getColumnDimension('C')->setAutoSize(true);
             $ws->getColumnDimension('D')->setAutoSize(true);
-            $ws->getColumnDimension('E')->setAutoSize(true);
+            //$ws->getColumnDimension('E')->setAutoSize(true);
             $ws->getColumnDimension('F')->setAutoSize(true);
-            $ws->getColumnDimension('G')->setAutoSize(true);
+            //$ws->getColumnDimension('G')->setAutoSize(true);
             $ws->getColumnDimension('H')->setAutoSize(true);
             $ws->getColumnDimension('I')->setAutoSize(true);
-            $ws->getColumnDimension('J')->setAutoSize(true);
-            $ws->getColumnDimension('K')->setAutoSize(true);
-            $ws->getColumnDimension('L')->setAutoSize(true);
-            $ws->getColumnDimension('M')->setAutoSize(true);
+            // $ws->getColumnDimension('J')->setAutoSize(true);
+            // $ws->getColumnDimension('K')->setAutoSize(true);
+            // $ws->getColumnDimension('L')->setAutoSize(true);
+            // $ws->getColumnDimension('M')->setAutoSize(true);
+            $ws->getColumnDimension('N')->setAutoSize(true);
+            $ws->getColumnDimension('O')->setAutoSize(true);
+            $ws->getColumnDimension('P')->setAutoSize(true);
+            $ws->getColumnDimension('Q')->setAutoSize(true);
+            $ws->getColumnDimension('R')->setAutoSize(true);
+            $ws->getColumnDimension('S')->setAutoSize(true);
             
+            //$objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
+
             $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader("&L& PT. CITRA GAIA\nJl. Manyar Jaya V Blok A-1c SURABAYA\nTelp. 031-5964944 - Fax. 031-5964945");
             
-            $ws->getStyle( "A5:R5" )->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-            $ws->getStyle( "A5:R5" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $ws->getStyle( "A5:T5" )->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $ws->getStyle( "A5:T5" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+            $ws->getStyle( "T6" )->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $ws->getStyle( "T6" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);            
+            $ws->getStyle( "A6:S6" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+            $ws->getStyle( "E7:S7" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $ws->getStyle( "E7:S7" )->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+            $ws->getStyle( "T6" )->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            
+            $ws->getStyle( "E8:S8" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
             $ws->setCellValue('A1', 'ADMINISTRATION REPORT')->mergeCells('A1:C1');
+            $ws->getRowDimension('1')->setRowHeight(40);
+
             $ws->setCellValue('A2', 'PT. CITRA GAIA')->mergeCells('A2:C2');
             $ws->setCellValue('A3', 'PROJECT : '.$filter)->mergeCells('A3:C3');
             $ws->setCellValue('A4', 'PERIODE '. date('d/m/Y'))->mergeCells('A3:C3');
             
-            //row 1
-            $ws->setCellValue('A5', 'NO')->mergeCells('A5:A9');
-            $ws->setCellValue('B5', 'OPR')->mergeCells('B5:B9');
-            $ws->setCellValue('C5', 'SITE NAME/LOKASI')->mergeCells('C5:C9');
-            $ws->setCellValue('D5', 'KABUPATEN')->mergeCells('D5:D9');
-            $ws->setCellValue('E5', '')->mergeCells('E5:J5');
-            $ws->setCellValue('K5', '')->mergeCells('K5:R5');
-            $ws->setCellValue('S5', '');
+            //row 5
+            $ws->setCellValue('A5', 'NO')->mergeCells('A5:A8');
+            $ws->setCellValue('B5', 'OPR')->mergeCells('B5:B8');
+            $ws->setCellValue('C5', 'SITE NAME/LOKASI')->mergeCells('C5:C8');
+            $ws->setCellValue('D5', 'KABUPATEN')->mergeCells('D5:D8');
+            $ws->setCellValue('E5', '')->mergeCells('E5:K5');
+            $ws->setCellValue('L5', '')->mergeCells('L5:S5');
+            $ws->setCellValue('T5', '');
 
-            //row 2
+            //row 6
             $ws->setCellValue('E6', 'PROGRESS')->mergeCells('E6:F6');
             $ws->setCellValue('G6', 'LAHAN')->mergeCells('G6:K6');
             $ws->setCellValue('L6', 'SEWA OPERATOR')->mergeCells('L6:O6');
             $ws->setCellValue('P6', 'OUSTEANDING RENTAL')->mergeCells('P6:S6');
-            $ws->setCellValue('T6', 'HARGA SEWA TOTAL');
+            $ws->setCellValue('T6', "HARGA SEWA\nTOTAL")->mergeCells('T6:T8');
+            $ws->getStyle('T6')->getAlignment()->setWrapText(true);
             
+            //row 7
+            $ws->setCellValue('E7', "TOWER\nHIGH")->mergeCells('E7:E8');
+            $ws->getStyle('E7')->getAlignment()->setWrapText(true);
+
+            $ws->setCellValue('F7', "STATUS");
+
+            $ws->setCellValue('G7', "NILAI SEWA\n(Rp.)")->mergeCells('G7:G8');
+            $ws->getStyle('G7')->getAlignment()->setWrapText(true);
+
+            $ws->setCellValue('H7', "MULAI\nSEWA")->mergeCells('H7:H8');
+            $ws->getStyle('H7')->getAlignment()->setWrapText(true);
+
+            $ws->setCellValue('I7', "AKHIR\nSEWA")->mergeCells('I7:I8');
+            $ws->getStyle('I7')->getAlignment()->setWrapText(true);
+
+            $ws->setCellValue('J7', "DURASI\n(th)")->mergeCells('J7:J8');
+            $ws->getStyle('J7')->getAlignment()->setWrapText(true);
+
+            $ws->setCellValue('K7', "SISA\nSEWA\n(th)")->mergeCells('K7:K8');
+            $ws->getStyle('K7')->getAlignment()->setWrapText(true);
+
+            $ws->setCellValue('L7', "NILAI SEWA\nOPERATOR\n(Rp./bln)")->mergeCells('L7:L8');
+            $ws->getStyle('L7')->getAlignment()->setWrapText(true);
+
+            $ws->setCellValue('M7', "LAMA\nSEWA\n(th)")->mergeCells('M7:M8');
+            $ws->getStyle('M7')->getAlignment()->setWrapText(true);
+
+            $ws->setCellValue('N7', "TANGGAL SEWA");
+            $ws->setCellValue('O7', "RENTAL\nPAYMENT");
+            $ws->getStyle('O7')->getAlignment()->setWrapText(true);
+
+            $ws->setCellValue('P7', "Harga Sewa/th")->mergeCells('P7:S7');
+
+            //Row 8
+            $ws->setCellValue('F8', "Progress");
+            $ws->setCellValue('N8', "AWAL");
+            $ws->setCellValue('O8', "DURATION");
+            $ws->setCellValue('P8', "Thn");
+            $ws->setCellValue('Q8', "Sewa/thn");
+            $ws->setCellValue('R8', "PPN");
+            $ws->setCellValue('S8', "Jumlah");
+          
             $default_border = array(
                 'style' => PHPExcel_Style_Border::BORDER_THIN
             );
@@ -558,40 +624,75 @@ class Report extends Dany_Controller
                 )
             );
             
-            $ws->getStyle('A5')->applyFromArray( $style_headerx );
-            $ws->getStyle('B5')->applyFromArray( $style_headerx );
-            $ws->getStyle('C5')->applyFromArray( $style_headerx );
-            $ws->getStyle('D5')->applyFromArray( $style_headerx );
-            $ws->getStyle('E5')->applyFromArray( $style_headerx );
-            $ws->getStyle('F5')->applyFromArray( $style_headerx );
-            $ws->getStyle('G5')->applyFromArray( $style_headerx );
-            $ws->getStyle('H5')->applyFromArray( $style_headerx );
-            $ws->getStyle('I5')->applyFromArray( $style_headerx );
-            $ws->getStyle('J5')->applyFromArray( $style_headerx );
-            $ws->getStyle('K5')->applyFromArray( $style_headerx );
-            $ws->getStyle('L5')->applyFromArray( $style_headerx );
-            $ws->getStyle('M5')->applyFromArray( $style_headerx );
+            //border header row 5
+            $ws->getStyle('A5:A8')->applyFromArray( $style_headerx );
+            $ws->getStyle('B5:B8')->applyFromArray( $style_headerx );
+            $ws->getStyle('C5:C8')->applyFromArray( $style_headerx );
+            $ws->getStyle('D5:D8')->applyFromArray( $style_headerx );
+            $ws->getStyle('A5:K5')->applyFromArray( $style_headerx );
+            $ws->getStyle('L5:S5')->applyFromArray( $style_headerx );
+            $ws->getStyle('T5')->applyFromArray( $style_headerx );
             
+            //border header row 6
+            $ws->getStyle('E6:F6')->applyFromArray( $style_headerx );
+            $ws->getStyle('G6:K6')->applyFromArray( $style_headerx );
+            $ws->getStyle('L6:O6')->applyFromArray( $style_headerx );
+            $ws->getStyle('P6:S6')->applyFromArray( $style_headerx );
+            $ws->getStyle('T6:T8')->applyFromArray( $style_headerx );
+            
+            //border header row 7
+            $ws->getStyle('E7:E8')->applyFromArray( $style_headerx );
+            $ws->getStyle('F7')->applyFromArray( $style_headerx );
+            $ws->getStyle('G7:G8')->applyFromArray( $style_headerx );
+            $ws->getStyle('H7:H8')->applyFromArray( $style_headerx );
+            $ws->getStyle('I7:I8')->applyFromArray( $style_headerx );
+            $ws->getStyle('J7:J8')->applyFromArray( $style_headerx );
+            $ws->getStyle('K7:K8')->applyFromArray( $style_headerx );
+            $ws->getStyle('L7:L8')->applyFromArray( $style_headerx );
+            $ws->getStyle('M7:M8')->applyFromArray( $style_headerx );
+            $ws->getStyle('N7:N8')->applyFromArray( $style_headerx );
+            $ws->getStyle('O7:O8')->applyFromArray( $style_headerx );
+            $ws->getStyle('P7:P8')->applyFromArray( $style_headerx );
+
+            //border header row 8
+            $ws->getStyle('F8')->applyFromArray( $style_headerx );
+            $ws->getStyle('N8')->applyFromArray( $style_headerx );
+            $ws->getStyle('O8')->applyFromArray( $style_headerx );
+            $ws->getStyle('P8')->applyFromArray( $style_headerx );
+            $ws->getStyle('Q8')->applyFromArray( $style_headerx );
+            $ws->getStyle('R8')->applyFromArray( $style_headerx );
+            $ws->getStyle('S8')->applyFromArray( $style_headerx );
+            
+
+
             $this->db->order_by('sitename asc');
-            $get = $this->db->get('v_rsite_sewa_akanhabis');
+            $get = $this->db->get('v_rsite_rekap');
             $baris = 9;
             foreach($get->result() as $r)
             {
                 $ws->setCellValue('A'.$baris, $baris-4);
-                $ws->setCellValue('B'.$baris, $r->siteid);
+                $ws->setCellValue('B'.$baris, $r->operator);
                 $ws->setCellValue('C'.$baris, $r->sitename);
-                $ws->setCellValue('D'.$baris, $r->address);
-                $ws->setCellValue('E'.$baris, strtoupper($r->jenis));
-                $ws->setCellValue('F'.$baris, $r->nama);
-                $ws->setCellValue('G'.$baris, $r->nospk);
-                $ws->setCellValue('H'.$baris, $r->typeskn);
-                $ws->setCellValue('I'.$baris, $r->tglspk == NULL ? '' : $this->apps->tgl_indo($r->tglspk));
-                $ws->setCellValue('J'.$baris, $r->leasestart == NULL ? '' : $this->apps->tgl_indo($r->leasestart));
-                $ws->setCellValue('K'.$baris, $r->leaseend == NULL ? '' : $this->apps->tgl_indo($r->leaseend));
-                $ws->setCellValue('L'.$baris, $r->akanberakhir);
-                $ws->setCellValue('M'.$baris, strtoupper($r->status));
+                $ws->setCellValue('D'.$baris, $r->city);
+                $ws->setCellValue('E'.$baris, $r->towerheight);
+                $ws->setCellValue('F'.$baris, $r->sitestatus);
+                $ws->setCellValue('G'.$baris, $r->sitenilasewa);
+                $ws->setCellValue('H'.$baris, $r->leasestart == NULL ? '' : $this->apps->to_dmY($r->leasestart,'/'));
+                $ws->setCellValue('I'.$baris, $r->leaseend == NULL ? '' : $this->apps->to_dmY($r->leaseend,'/'));
+                $ws->setCellValue('J'.$baris, $r->sitedurasimonth == 0 ? $r->sitedurasiyear : $r->sitedurasiyear.'+'.$r->sitedurasimonth);
+                $ws->setCellValue('K'.$baris, $r->sitesisasewa);
+                $ws->setCellValue('L'.$baris, $r->oprnilaisewa);
+                $ws->setCellValue('M'.$baris, $r->oprlamasewa);
+                $ws->setCellValue('N'.$baris, $r->oprsewaawal == NULL ? '' : $this->apps->to_dmY($r->oprsewaawal,'/'));
+                $ws->setCellValue('O'.$baris, $r->oprdurasi);
+                $ws->setCellValue('P'.$baris, $r->outstdth);
+                $ws->setCellValue('Q'.$baris, $r->outstdsewa);
+                $ws->setCellValue('R'.$baris, $r->outstdppn);
+                $ws->setCellValue('S'.$baris, $r->outjml);
+                $ws->setCellValue('T'.$baris, $r->sewatotal);
+
                 
-                $ws->getStyle('A'.$baris)->applyFromArray( $style_header );
+                $ws->getStyle("A".$baris)->applyFromArray( $style_header );
                 $ws->getStyle('B'.$baris)->applyFromArray( $style_header );
                 $ws->getStyle('C'.$baris)->applyFromArray( $style_header );
                 $ws->getStyle('D'.$baris)->applyFromArray( $style_header );
@@ -604,6 +705,13 @@ class Report extends Dany_Controller
                 $ws->getStyle('K'.$baris)->applyFromArray( $style_header );
                 $ws->getStyle('L'.$baris)->applyFromArray( $style_header );
                 $ws->getStyle('M'.$baris)->applyFromArray( $style_header );
+                $ws->getStyle('N'.$baris)->applyFromArray( $style_header );
+                $ws->getStyle('O'.$baris)->applyFromArray( $style_header );
+                $ws->getStyle('P'.$baris)->applyFromArray( $style_header );
+                $ws->getStyle('Q'.$baris)->applyFromArray( $style_header );
+                $ws->getStyle('R'.$baris)->applyFromArray( $style_header );
+                $ws->getStyle('S'.$baris)->applyFromArray( $style_header );
+                $ws->getStyle('T'.$baris)->applyFromArray( $style_header );
                 
                 $baris += 1;
             }

@@ -50,4 +50,10 @@ class Apps
         $y = explode('/', $tgl);
         return $y[2].'-'.$y[1].'-'.$y[0];
     }
+
+    public function to_dmY($tgl = '', $delimiter = ' ')
+    {
+        $y = explode('-', $tgl);
+        return $y[2].$delimiter.$y[1].$delimiter.$y[0];
+    }
 }

@@ -554,7 +554,7 @@ class Report extends Dany_Controller
             $ws->setCellValue('E6', 'PROGRESS')->mergeCells('E6:F6');
             $ws->setCellValue('G6', 'LAHAN')->mergeCells('G6:K6');
             $ws->setCellValue('L6', 'SEWA OPERATOR')->mergeCells('L6:O6');
-            $ws->setCellValue('P6', 'OUSTEANDING RENTAL')->mergeCells('P6:S6');
+            $ws->setCellValue('P6', 'OUSTANDING RENTAL')->mergeCells('P6:S6');
             $ws->setCellValue('T6', "HARGA SEWA\nTOTAL")->mergeCells('T6:T8');
             $ws->getStyle('T6')->getAlignment()->setWrapText(true);
             
@@ -670,7 +670,7 @@ class Report extends Dany_Controller
             $baris = 9;
             foreach($get->result() as $r)
             {
-                $ws->setCellValue('A'.$baris, $baris-4);
+                $ws->setCellValue('A'.$baris, $baris-8);
                 $ws->setCellValue('B'.$baris, $r->operator);
                 $ws->setCellValue('C'.$baris, $r->sitename);
                 $ws->setCellValue('D'.$baris, $r->city);
@@ -690,7 +690,6 @@ class Report extends Dany_Controller
                 $ws->setCellValue('R'.$baris, $r->outstdppn);
                 $ws->setCellValue('S'.$baris, $r->outjml);
                 $ws->setCellValue('T'.$baris, $r->sewatotal);
-
                 
                 $ws->getStyle("A".$baris)->applyFromArray( $style_header );
                 $ws->getStyle('B'.$baris)->applyFromArray( $style_header );

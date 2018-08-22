@@ -38,10 +38,13 @@
 				<div class="caption font-green-sharp">                        
                     <span class="caption-subject bold uppercase"> Data Site</span>
                 </div>
-                <div class="actions">                    
+                <div class="actions">
+                    <a href="<?php echo base_url('site_expenses/export_xls/'.$site->id1); ?>" class="btn btn-circle btn-primary btn-sm" target="_blank" download><i class="fa fa-file-excel-o"></i> Eksport Excel</a>              
                     <a href="<?php echo base_url('site_expenses/add/'.$site->id1); ?>" class="btn btn-circle btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Data</a>
                     <a href="<?php echo base_url('site'); ?>" class="btn btn-circle btn-primary btn-sm"><i class="fa fa-long-arrow-left"></i> Back</a>
+                    
                 </div>
+               
 			</div>
 			<div class="portlet-body">
                 <table>

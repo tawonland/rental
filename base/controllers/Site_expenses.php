@@ -214,4 +214,57 @@ class Site_expenses extends Dany_Controller
 		
         return $this->form_validation->run(); 
 	}
+
+    public function export_xls($id = '')
+    {
+        require_once APPPATH."/third_party/PHPExcel/PHPExcel.php";
+
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $ws = $objPHPExcel->getActiveSheet();
+        $ws->setTitle('Data');
+        $ws->getColumnDimension('A')->setAutoSize(true);
+        $ws->getColumnDimension('B')->setAutoSize(true);
+        $ws->getColumnDimension('C')->setAutoSize(true);
+        $ws->getColumnDimension('D')->setAutoSize(true);
+        $ws->getColumnDimension('E')->setAutoSize(true);
+        $ws->getColumnDimension('F')->setAutoSize(true);
+
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader("&L& PT. CITRA GAIA\nJl. Manyar Jaya V Blok A-1c SURABAYA\nTelp. 031-5964944 - Fax. 031-5964945");
+
+        //header
+        $ws->setCellValue('A5', 'NO');
+        $ws->setCellValue('B5', 'KETERANGAN');
+        $ws->setCellValue('C5', 'JENIS BIAYA');
+        $ws->setCellValue('D5', 'JUMLAH');
+        $ws->setCellValue('E5', 'TGL BAYAR');
+        $ws->setCellValue('F5', 'STATUS');
+        
+        //header align
+        $ws->getStyle( "A5:F5" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        //list data
+        $this->db->where('id1', $id);
+        $get = $this->db->get('v_rsite_expenses');
+        $baris = 6;
+        foreach($get->result() as $r)
+        {
+            $ws->setCellValue('A'.$baris, $baris-5);
+            $ws->setCellValue('B'.$baris, $r->keterangan);
+            $ws->setCellValue('C'.$baris, $r->jenis_biaya);
+            $ws->setCellValue('D'.$baris, $r->jumlah);
+            $ws->setCellValue('E'.$baris, $r->tgl_bayar);
+            $ws->setCellValue('F'.$baris, $r->sudah_bayar);
+
+            $baris += 1;
+        }
+
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="Expenses.xls"');
+        header('Cache-Control: max-age=0');
+        $objWriter->save('php://output');
+
+    }
 }

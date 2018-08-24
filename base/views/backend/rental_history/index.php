@@ -63,6 +63,7 @@
                             <th style="text-align: center;width: 40px;">No</th>
                             <th>Lease Start</th>
                             <th>Lease End</th>
+                            <th>Nilai Sewa</th>
                             <th>Note</th>
                             <th>#</th>                                                                        
                         </tr>
@@ -100,7 +101,8 @@ var t = $('#mytable').DataTable({
         {"data": "DT_RowId", "class": "text-center", "orderable": false},
         {"data": "leasestart", "class": "text-center"}, 
         {"data": "leaseend", "class": "text-center"}, 
-        {"data": "keterangan", "class": "text-left"}, 
+        {"data": "nilai_sewa", "class": "text-left"}, 
+        {"data": "keterangan", "class": "text-left"},        
         {"data": "aksi", "class": "text-center"}
     ],
     "order": [[1, 'desc']],

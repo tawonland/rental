@@ -1,0 +1,33 @@
+1. di rsite_sewa saya tambahkan nilai_sewa, minta tolong di sesuaikan CRUD nya
+   ---> Done
+   
+2. yang lahan : nilai sewa, 
+   saya tambahkan kolom nilai_sewa di rsite_sewa pak, 
+   itu kan detil ya pak, nanti ambil record paling akhir
+   ---> Done
+
+3. yang di sewa operator : nilai sewa operator, 
+   itu ambil dari rsite_penyewa.nilai_kontrak
+   ---> Done
+
+4. outstanding rental, itu dari data penyewa pak, 
+   sewa/thn : dari rsite_penyewa.nilai_kontrak / durasi_sewa
+   durasi sewa dari : rsite_penyewa.leaseend - rsite_penyewa.leasestart
+   ** perlu di ketahui data rsite_penyewa.leaseend / rsite_penyewa.leasestart, 
+   bisa berubah sewaktu-waktu karena di edit, 
+   rencana saya kasih trigger saja pak, supaya bisa otomatis update
+   -- akan saya tambahkan kolom sewa_per_thn agar mudah di view nya
+   
+   ---> Done
+
+5. PPN, itu kita asumsikan PPN dari sewa_per_thn, 
+   dikalikan 10% saja pak
+   ---> Done
+
+6. outstanding rental : jumlah, 
+   dari (sewa_per_thn + PPN)
+   ---> Done
+
+7. outstanding rental : harga sewa total
+   dari thn x (sewa_per_thn + PPN)
+   ---> Done

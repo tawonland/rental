@@ -68,7 +68,7 @@
                             <th>Jenis Biaya</th>
                             <th>Jumlah</th>
                             <th>Tgl. Bayar</th>
-                            <th>Status</th>
+                            <th>Sudah Bayar</th>
                             <th>#</th>                                                                        
                         </tr>
                     </thead>

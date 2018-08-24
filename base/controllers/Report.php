@@ -84,21 +84,14 @@ class Report extends Dany_Controller
                 $this->datatables->from('v_rsite_gaji');
             }else if($jenis == 'rekap'){
                 $this->datatables->select('
-                    siteid as DT_RowId,
-                    siteid,
-                    sitename,
-                    address,
-                    jenis,
-                    nama,
-                    nospk,
-                    typeskn,
-                    DATE_FORMAT(tglspk, \'%d-%m-%Y\') as tglspk,
-                    DATE_FORMAT(leasestart, \'%d-%m-%Y\') as leasestart,
-                    DATE_FORMAT(leaseend, \'%d-%m-%Y\') as leaseend,
-                    akanberakhir,
-                    status
-                    ');
-                $this->datatables->from('v_rsite_sewa_akanhabis');
+                    idoperator as DT_RowId, 
+                    operator, 
+                    sitename, 
+                    city,
+                    towerheight,
+                    UPPER(sitestatus) as sitestatus, 
+                    FORMAT(sewatotal, 2, \'de_DE\') as sewatotal');
+                $this->datatables->from('v_rsite_rekap');
             }
             echo $this->datatables->generate();
 		}
@@ -495,14 +488,16 @@ class Report extends Dany_Controller
             $ws = $objPHPExcel->getActiveSheet();
             $ws->setTitle('Data');
 
+            $ws->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+            $ws->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LEGAL);
+
             //Auto Width
-            //$ws->getColumnDimension('A')->setAutoSize(true);
+            $ws->getColumnDimension('A')->setWidth(5);
             $ws->getColumnDimension('B')->setAutoSize(true);
             $ws->getColumnDimension('C')->setAutoSize(true);
             $ws->getColumnDimension('D')->setAutoSize(true);
             //$ws->getColumnDimension('E')->setAutoSize(true);
             $ws->getColumnDimension('F')->setAutoSize(true);
-            //$ws->getColumnDimension('G')->setAutoSize(true);
             $ws->getColumnDimension('H')->setAutoSize(true);
             $ws->getColumnDimension('I')->setAutoSize(true);
             // $ws->getColumnDimension('J')->setAutoSize(true);
@@ -512,9 +507,7 @@ class Report extends Dany_Controller
             $ws->getColumnDimension('N')->setAutoSize(true);
             $ws->getColumnDimension('O')->setAutoSize(true);
             $ws->getColumnDimension('P')->setAutoSize(true);
-            $ws->getColumnDimension('Q')->setAutoSize(true);
-            $ws->getColumnDimension('R')->setAutoSize(true);
-            $ws->getColumnDimension('S')->setAutoSize(true);
+            //
             
             //$objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
 
@@ -529,6 +522,11 @@ class Report extends Dany_Controller
 
             $ws->getStyle( "E7:S7" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             $ws->getStyle( "E7:S7" )->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+            $ws->getStyle( "F" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $ws->getStyle( "H" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $ws->getStyle( "I" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $ws->getStyle( "N" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
             $ws->getStyle( "T6" )->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
             
@@ -609,6 +607,9 @@ class Report extends Dany_Controller
                     'left' => $default_border,
                     'top' => $default_border,
                     'right' => $default_border,
+                ),
+                    'font'  => array(
+                    'size'  => 11
                 )
             );
             $style_headerx = array(
@@ -662,9 +663,14 @@ class Report extends Dany_Controller
             $ws->getStyle('Q8')->applyFromArray( $style_headerx );
             $ws->getStyle('R8')->applyFromArray( $style_headerx );
             $ws->getStyle('S8')->applyFromArray( $style_headerx );
+
+            $ws->getColumnDimension('G')->setAutoSize(true);
+            $ws->getColumnDimension('L')->setAutoSize(true);
+            $ws->getColumnDimension('Q')->setAutoSize(true);
+            $ws->getColumnDimension('R')->setAutoSize(true);
+            $ws->getColumnDimension('S')->setAutoSize(true);
+            $ws->getColumnDimension('T')->setAutoSize(true);
             
-
-
             $this->db->order_by('sitename asc');
             $get = $this->db->get('v_rsite_rekap');
             $baris = 9;
@@ -675,21 +681,21 @@ class Report extends Dany_Controller
                 $ws->setCellValue('C'.$baris, $r->sitename);
                 $ws->setCellValue('D'.$baris, $r->city);
                 $ws->setCellValue('E'.$baris, $r->towerheight);
-                $ws->setCellValue('F'.$baris, $r->sitestatus);
-                $ws->setCellValue('G'.$baris, $r->sitenilasewa);
-                $ws->setCellValue('H'.$baris, $r->leasestart == NULL ? '' : $this->apps->to_dmY($r->leasestart,'/'));
-                $ws->setCellValue('I'.$baris, $r->leaseend == NULL ? '' : $this->apps->to_dmY($r->leaseend,'/'));
+                $ws->setCellValue('F'.$baris, strtoupper($r->sitestatus));
+                $ws->setCellValue('G'.$baris, $this->apps->to_money($r->sitenilasewa));
+                $ws->setCellValue('H'.$baris, $r->leasestart == NULL ? '' : $this->apps->to_dmY($r->leasestart));
+                $ws->setCellValue('I'.$baris, $r->leaseend == NULL ? '' : $this->apps->to_dmY($r->leaseend));
                 $ws->setCellValue('J'.$baris, $r->sitedurasimonth == 0 ? $r->sitedurasiyear : $r->sitedurasiyear.'+'.$r->sitedurasimonth);
                 $ws->setCellValue('K'.$baris, $r->sitesisasewa);
-                $ws->setCellValue('L'.$baris, $r->oprnilaisewa);
+                $ws->setCellValue('L'.$baris, $this->apps->to_money($r->oprnilaisewa));
                 $ws->setCellValue('M'.$baris, $r->oprlamasewa);
-                $ws->setCellValue('N'.$baris, $r->oprsewaawal == NULL ? '' : $this->apps->to_dmY($r->oprsewaawal,'/'));
-                $ws->setCellValue('O'.$baris, $r->oprdurasi);
+                $ws->setCellValue('N'.$baris, $r->oprsewaawal == NULL ? '' : $this->apps->to_dmY($r->oprsewaawal));
+                $ws->setCellValue('O'.$baris, 'Per '.$r->oprdurasi);
                 $ws->setCellValue('P'.$baris, $r->outstdth);
-                $ws->setCellValue('Q'.$baris, $r->outstdsewa);
-                $ws->setCellValue('R'.$baris, $r->outstdppn);
-                $ws->setCellValue('S'.$baris, $r->outjml);
-                $ws->setCellValue('T'.$baris, $r->sewatotal);
+                $ws->setCellValue('Q'.$baris, $this->apps->to_money($r->outstdsewaperthn));
+                $ws->setCellValue('R'.$baris, $this->apps->to_money($r->outstdppn));
+                $ws->setCellValue('S'.$baris, $this->apps->to_money($r->outjml));
+                $ws->setCellValue('T'.$baris, $this->apps->to_money($r->sewatotal));
                 
                 $ws->getStyle("A".$baris)->applyFromArray( $style_header );
                 $ws->getStyle('B'.$baris)->applyFromArray( $style_header );
@@ -714,25 +720,25 @@ class Report extends Dany_Controller
                 
                 $baris += 1;
             }
-            
-             $ws->getStyle("A".$baris.":B".$baris)
-                         ->getAlignment()
-                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-             $ws->getStyle("E".$baris.":E".$baris)
-                         ->getAlignment()
-                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-             $ws->getStyle("H".$baris.":M".$baris)
-                         ->getAlignment()
-                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-             $ws->getStyle("A1:K4")
-                         ->getAlignment()
-                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-                         
-            //$ws->mergeCells('A1:M1');
-            //$ws->mergeCells('A2:M2');
-            $ws->getStyle( "A1:M4" )->getFont()->setBold( true );
 
-            
+            $ws->getStyle("G9:G".$baris)
+                         ->getAlignment()
+                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+            $ws->getStyle("L9:L".$baris)
+                         ->getAlignment()
+                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+            $ws->getStyle("Q9:Q".$baris)
+                         ->getAlignment()
+                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+            $ws->getStyle("R9:R".$baris)
+                         ->getAlignment()
+                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+            $ws->getStyle("S9:S".$baris)
+                         ->getAlignment()
+                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+            $ws->getStyle("T9:T".$baris)
+                         ->getAlignment()
+                         ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
                         
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

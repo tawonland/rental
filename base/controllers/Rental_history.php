@@ -41,12 +41,14 @@ class Rental_history extends Dany_Controller
                 rsite_sewa.id1 as DT_RowId,  
                 DATE_FORMAT(rsite_sewa.leasestart, \'%d-%m-%Y\') as leasestart,
                 DATE_FORMAT(rsite_sewa.leaseend, \'%d-%m-%Y\') as leaseend,
+                FORMAT(rsite_sewa.nilai_sewa,2 ,\'de-DE\') as nilai_sewa,
                 rsite_sewa.keterangan,
                 rsite_sewa.id1 as aksi
                 ');
             $this->datatables->from('rsite_sewa');
             $this->datatables->where('id_rsite', $id);
-            
+            $this->db->order_by("id1", "desc");
+
             $this->datatables->add_column('aksi', '<a href="'.base_url('rental_history/edit/'.$id.'/$1').'" class="label label-warning" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a> <a href="'.base_url('rental_history/del/'.$id.'/$1').'" class="label label-danger" data-toggle="tooltip" hapus="ok" title="Delete"><i class="fa fa-remove"></i></a>', 'aksi');
             
             echo $this->datatables->generate();

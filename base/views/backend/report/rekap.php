@@ -46,14 +46,17 @@
             
                 <table class="table table-striped table-bordered table-hover" id="mytable">
                     <thead>
+                        <tr class="info" valign="midle">
+                            <th rowspan="2" style="text-align: center;width: 40px;">No</th>
+                            <th rowspan="2">Operator</th>
+                            <th rowspan="2">Site Name</th>
+                            <th rowspan="2">Kabupaten</th>
+                            <th colspan="2">Progress</th>
+                            <th rowspan="2">Harga Sewa<br>Total</th>
+                        </tr>
                         <tr class="info">
-                            <th style="text-align: center;width: 40px;">No</th>
-                            <th>Site Id</th>
-                            <th>Site Name</th>                                                                        
-                            <th>Nama</th>                                                                        
-                            <th>Akan Berakhir</th>                                                                        
-                            <th>Lease End</th>                                                                        
-                            <th>Status</th>                                                                        
+                            <th>Tower High</th>
+                            <th>Status Progress</th>
                         </tr>
                     </thead>
                 </table>
@@ -86,12 +89,12 @@ var t = $('#mytable').DataTable({
     "ajax": '{$url}{$controller}/data/rekap',
     "columns": [
         {"data": "DT_RowId", "class": "text-center", "orderable": false},
-        {"data": "siteid", "class": "text-center"}, 
+        {"data": "operator", "class": "text-left"}, 
         {"data": "sitename", "class": "text-left"}, 
-        {"data": "nama", "class": "text-left"}, 
-        {"data": "akanberakhir", "class": "text-center"}, 
-        {"data": "leaseend", "class": "text-center"},
-        {"data": "status", "class": "text-center uppercase"}
+        {"data": "city", "class": "text-left"}, 
+        {"data": "towerheight", "class": "text-left"}, 
+        {"data": "sitestatus", "class": "text-left"}, 
+        {"data": "sewatotal", "class": "text-right"}
     ],
     "order": [[4, 'asc']],
     "rowCallback": function (row, data, iDisplayIndex) {

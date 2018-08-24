@@ -217,6 +217,10 @@ class Site_expenses extends Dany_Controller
 
     public function export_xls($id = '')
     {
+        $this->db->where('id1', $id);
+        $xcek = $this->db->get('rsite');
+        $site = $xcek->row();
+
         require_once APPPATH."/third_party/PHPExcel/PHPExcel.php";
 
         $objPHPExcel = new PHPExcel();
@@ -230,15 +234,53 @@ class Site_expenses extends Dany_Controller
         $ws->getColumnDimension('E')->setAutoSize(true);
         $ws->getColumnDimension('F')->setAutoSize(true);
 
+        
+
         $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader("&L& PT. CITRA GAIA\nJl. Manyar Jaya V Blok A-1c SURABAYA\nTelp. 031-5964944 - Fax. 031-5964945");
 
-        //header
+        $default_border = array(
+                'style' => PHPExcel_Style_Border::BORDER_THIN
+            );
+
+        //pre table header
+        $style_pre_table_header = array(
+                            'borders' => array(
+                            'bottom' => $default_border,
+                            'left' => $default_border,
+                            'top' => $default_border,
+                            'right' => $default_border,
+                            ),
+                            'fill' => array(
+                                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                                'color' => array('rgb'=>'EEEEEE'),
+                            )
+                        );
+
+        $ws->setCellValue('A2','ID Site         : ' . $site->siteid)->mergeCells('A2:B2');
+        $ws->setCellValue('A3','Site Name   : ' . $site->sitename)->mergeCells('A3:B3');
+
+        //table header
+        $style_table_header = array(
+                            'borders' => array(
+                            'bottom' => $default_border,
+                            'left' => $default_border,
+                            'top' => $default_border,
+                            'right' => $default_border,
+                            ),
+                            'fill' => array(
+                                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                                'color' => array('rgb'=>'EEEEEE'),
+                            )
+                        );
+        
+        $ws->getStyle('A5:F5')->applyFromArray( $style_table_header );
+
         $ws->setCellValue('A5', 'NO');
         $ws->setCellValue('B5', 'KETERANGAN');
         $ws->setCellValue('C5', 'JENIS BIAYA');
         $ws->setCellValue('D5', 'JUMLAH');
         $ws->setCellValue('E5', 'TGL BAYAR');
-        $ws->setCellValue('F5', 'STATUS');
+        $ws->setCellValue('F5', 'SUDAH BAYAR');
         
         //header align
         $ws->getStyle( "A5:F5" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -246,15 +288,17 @@ class Site_expenses extends Dany_Controller
         //list data
         $this->db->where('id1', $id);
         $get = $this->db->get('v_rsite_expenses');
+
+        $a_status_exepnses = array('-', 'Sudah Realisasi');
         $baris = 6;
         foreach($get->result() as $r)
         {
             $ws->setCellValue('A'.$baris, $baris-5);
             $ws->setCellValue('B'.$baris, $r->keterangan);
             $ws->setCellValue('C'.$baris, $r->jenis_biaya);
-            $ws->setCellValue('D'.$baris, $r->jumlah);
-            $ws->setCellValue('E'.$baris, $r->tgl_bayar);
-            $ws->setCellValue('F'.$baris, $r->sudah_bayar);
+            $ws->setCellValue('D'.$baris, $this->apps->to_money($r->jumlah));
+            $ws->setCellValue('E'.$baris, $this->apps->to_dmY($r->tgl_bayar));
+            $ws->setCellValue('F'.$baris, $a_status_exepnses[$r->sudah_bayar]);
 
             $baris += 1;
         }

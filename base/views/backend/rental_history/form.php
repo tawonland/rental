@@ -93,6 +93,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Nilai Sewa</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="nilai_sewa" value="<?php echo $data['nilai_sewa']; ?>" class="form-control aneh" placeholder="Nilai Sewa">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="row">
                         <div class="col-md-12">

@@ -5,11 +5,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span><?php echo ($site->sitename == '' ? $site->siteid : $site->sitename); ?></span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>Site Expenses</span>
+            <span>Jenis Tenant</span>
         </li>
 	</ul>
 </div>
@@ -18,7 +14,7 @@
 </h1>
 
 <div class="note note-info">
-    <p>Data Site Expenses</p>
+    <p>Data Jenis Tenant</p>
 </div>
 
 <?php if($this->session->flashdata('error')) { ?>
@@ -38,37 +34,18 @@
 				<div class="caption font-green-sharp">                        
                     <span class="caption-subject bold uppercase"> Data Site</span>
                 </div>
-                <div class="actions">             
-                    <a href="<?php echo base_url('site_expenses/add/'.$site->id1); ?>" class="btn btn-circle btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Data</a>
-                    <a href="<?php echo base_url('site'); ?>" class="btn btn-circle btn-primary btn-sm"><i class="fa fa-long-arrow-left"></i> Back</a>
-                    
+                <div class="actions">                    
+                    <a href="<?php echo base_url('jenis_tenant/add'); ?>" class="btn btn-circle btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Data</a>
                 </div>
-               
 			</div>
-			<div class="portlet-body">
-                <table>
-                    <tr>
-                        <td width="100"><strong>ID Site</strong></td>
-                        <td>: <?php echo $site->siteid; ?></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Site Name</strong></td>
-                        <td>: <?php echo $site->sitename; ?></td>
-                    </tr>
-                </table>
-                
-                <hr>
-                
+			<div class="portlet-body">                
                 <table class="table table-striped table-bordered table-hover" id="mytable">
                     <thead>
                         <tr class="info">
                             <th style="text-align: center;width: 40px;">No</th>
-                            <th>Keterangan</th>
-                            <th>Jenis Biaya</th>
-                            <th>Jumlah</th>
-                            <th>Tgl. Bayar</th>
-                            <th>Sudah Bayar</th>
-                            <th>#</th>                                                                        
+                            <th>Jenis</th>                                                                        
+                            <th>Nama</th>                                                                       
+                            <th>#</th>                                                                       
                         </tr>
                     </thead>
                 </table>
@@ -81,7 +58,6 @@
 <?php
 $url = base_url();
 $controller = $this->router->class;
-$id_site = $site->id1;
 $js = <<<EOD
 $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings)
 {
@@ -99,17 +75,15 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings)
 var t = $('#mytable').DataTable({
     "processing": true,
     "serverSide": true,
-    "ajax": '{$url}{$controller}/data/{$id_site}',
+    "ajax": '{$url}{$controller}/data',
     "columns": [
         {"data": "DT_RowId", "class": "text-center", "orderable": false},
-        {"data": "keterangan", "class": "text-left"}, 
-        {"data": "jenis_biaya", "class": "text-left"}, 
-        {"data": "jumlah", "class": "text-right"}, 
-        {"data": "tgl_bayar", "class": "text-center"}, 
-        {"data": "sudah_bayar", "class": "text-center"}, 
+        {"data": "jenis", "class": "text-left"},
+        {"data": "nama", "class": "text-left"},
         {"data": "aksi", "class": "text-center"}
-    ],
-    "order": [[1, 'desc']],
+
+        ],
+    "order": [[1, 'asc']],
     "rowCallback": function (row, data, iDisplayIndex) {
         var info = this.fnPagingInfo();
         var page = info.iPage;
@@ -127,4 +101,3 @@ EOD;
 
 $this->apps->set_js($js);
 ?>
-

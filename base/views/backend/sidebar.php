@@ -13,6 +13,12 @@
             <span class="title">Site</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a href="<?php echo base_url('jenis_tenant')?>" class="nav-link nav-toggle">
+            <i class="icon-user"></i>
+            <span class="title">Jenis Tenant</span>
+        </a>
+    </li>
     <li class="nav-item <?php echo ($this->router->class == 'report' ? 'open' : ''); ?>">
         <a href="javascript:;" class="nav-link nav-toggle">
             <i class="icon-printer"></i>
@@ -33,6 +39,11 @@
             <li class="nav-item  ">
                 <a href="<?php echo site_url('report/gaji')?>" class="nav-link ">
                     <span class="title"><i class="fa fa-circle-o"></i> Report Gaji</span>
+                </a>
+            </li> 
+            <li class="nav-item  ">
+                <a href="<?php echo site_url('report/expenses')?>" class="nav-link ">
+                    <span class="title"><i class="fa fa-circle-o"></i> Report Expenses</span>
                 </a>
             </li> 
             <li class="nav-item  ">

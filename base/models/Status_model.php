@@ -1,6 +1,26 @@
 <?php
 class Status_model extends Dany_Model {
 
+    /**
+     * Status delete
+     * @return string
+     */
+    function insertStatus() {
+
+        $err = $this->db->error();
+        $errCode = $err['code'];
+        $msg = $this->getErrorMessage($errCode, 'insert');
+        
+        if ($err['code'] == '1062') {                
+                $msg .= ', karena data tersebut sudah ada';    
+        }
+        else{
+            $msg .= ', ' . $err['message'];
+        }
+
+        return array('error' => $err, 'msg' => $msg);
+    }
+
 	/**
      * Status delete
      * @return string

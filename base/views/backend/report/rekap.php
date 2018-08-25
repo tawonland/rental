@@ -39,9 +39,39 @@
                     <span class="caption-subject bold uppercase"> Data Report Rekap</span>
                 </div>
                 <div class="actions">                    
-                    <a href="<?php echo base_url('report/export_xls/rekap'); ?>" class="btn btn-circle btn-primary btn-sm" target="_blank" download><i class="fa fa-file-excel-o"></i> Eksport Excel</a>
+                   <a href="<?php echo base_url('report/export_xls/rekap'); ?>" class="btn btn-circle btn-primary btn-sm" target="_blank" download><i class="fa fa-file-excel-o"></i> Eksport Excel</a>
                 </div>
 			</div>
+            
+            <!--
+            <div class="portlet-body">
+                <div class="caption font-green-sharp">                        
+                    <form id="form-filter" class="form-horizontal" method="post" target="_blank">
+                        <div class="form-group">
+                            <label for="operator" class="col-sm-2 control-label">Operator</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="operator" name="operator">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="LastName" class="col-sm-2 control-label"></label>
+                            <div class="col-sm-4">
+                                <button type="button" id="btn-filter" class="btn btn-primary">Filter</button>
+                                <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+            <div class="portlet-title">
+
+                <div class="actions">                    
+                    <button id="btn-export-excel" class="btn btn-circle btn-primary btn-sm" target="_blank" download><i class="fa fa-file-excel-o"></i> Eksport Excel</button>
+                </div>
+            </div>
+            -->
+
 			<div class="portlet-body">
             
                 <table class="table table-striped table-bordered table-hover" id="mytable">
@@ -69,6 +99,9 @@
 <?php
 $url = base_url();
 $controller = $this->router->class;
+
+$url_export_xls = base_url('report/export_xls/rekap');
+
 $js = <<<EOD
 $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings)
 {
@@ -86,14 +119,21 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings)
 var t = $('#mytable').DataTable({
     "processing": true,
     "serverSide": true,
-    "ajax": '{$url}{$controller}/data/rekap',
+    "ajax": {
+        "url" : "{$url}{$controller}/data/rekap",
+        "type" : "POST",
+        "data" : function ( data ) {
+                    data.operator = $('#operator').val();
+                }
+    },
+    
     "columns": [
         {"data": "DT_RowId", "class": "text-center", "orderable": false},
         {"data": "operator", "class": "text-left"}, 
         {"data": "sitename", "class": "text-left"}, 
         {"data": "city", "class": "text-left"}, 
         {"data": "towerheight", "class": "text-left"}, 
-        {"data": "sitestatus", "class": "text-left"}, 
+        {"data": "sitestatus", "class": "text-center"}, 
         {"data": "sewatotal", "class": "text-right"}
     ],
     "order": [[4, 'asc']],
@@ -110,6 +150,21 @@ var t = $('#mytable').DataTable({
         }
     }
 });
+
+$('#btn-filter').click(function(){ //button filter event click
+    t.ajax.reload();  //just reload table
+});
+
+$('#btn-reset').click(function(){ //button reset event click
+    $('#form-filter')[0].reset();
+    t.ajax.reload();  //just reload table
+});
+
+$('#btn-export-excel').click(function(){
+    $('#form-filter').attr('action', '{$url_export_xls}');
+    $('#form-filter').submit();
+});
+
 EOD;
 
 $this->apps->set_js($js);

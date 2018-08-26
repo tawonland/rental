@@ -22,10 +22,20 @@
 </div>
 
 <?php if($this->session->flashdata('error')) { ?>
-<div class="note note-info">
+<div class="note note-danger">
     <ul style="margin-left: -15px;margin-bottom: 0;">
         <?php
         echo '<li>'.$this->session->flashdata('error').'</li>';
+        ?>
+    </ul>
+</div>
+<?php } ?>
+
+<?php if($this->session->flashdata('success')) { ?>
+<div class="note note-info">
+    <ul style="margin-left: -15px;margin-bottom: 0;">
+        <?php
+            echo '<li>'.$this->session->flashdata('success').'</li>';
         ?>
     </ul>
 </div>
@@ -64,6 +74,7 @@
                             <th>Operator</th>
                             <th>Lease Time</th>
                             <th>Status</th>
+                            <th>Nilai Kontrak</th>
                             <th>Masa Pembayaran</th>
                             <th>Link</th>                                                                         
                             <th>#</th>                                                                        
@@ -103,11 +114,12 @@ var t = $('#mytable').DataTable({
         {"data": "operator", "class": "text-left"}, 
         {"data": "leasetime", "class": "text-center"}, 
         {"data": "status", "class": "text-center"}, 
+        {"data": "nilai_kontrak", "class": "text-right"}, 
         {"data": "masa_sistem_pembayaran", "class": "text-center"}, 
         {"data": "link", "class": "text-left"},
         {"data": "aksi", "class": "text-center"}
     ],
-    "order": [[1, 'desc']],
+    "order": [[0, 'desc']],
     "rowCallback": function (row, data, iDisplayIndex) {
         var info = this.fnPagingInfo();
         var page = info.iPage;

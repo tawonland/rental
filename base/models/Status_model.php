@@ -1,6 +1,13 @@
 <?php
 class Status_model extends Dany_Model {
 
+    function status($err)
+    {
+
+        $status = $err == '0' ? 'success' : 'error';
+
+        return $status;
+    }
     /**
      * Status delete
      * @return string
@@ -10,15 +17,17 @@ class Status_model extends Dany_Model {
         $err = $this->db->error();
         $errCode = $err['code'];
         $msg = $this->getErrorMessage($errCode, 'insert');
+
+        $status = $this->status($err['code']);
         
         if ($err['code'] == '1062') {                
-                $msg .= ', karena data tersebut sudah ada';    
+                $msg .= ', karena data tersebut sudah ada';
         }
         else{
-            $msg .= ', ' . $err['message'];
+            $msg .= '. ' . $err['message'];
         }
 
-        return array('error' => $err, 'msg' => $msg);
+        return array('status' => $status, 'error' => $err, 'msg' => $msg);
     }
 
     /**
@@ -35,7 +44,7 @@ class Status_model extends Dany_Model {
                 $msg .= ', karena data tersebut sudah ada';    
         }
         else{
-            $msg .= ', ' . $err['message'];
+            $msg .= '. ' . $err['message'];
         }
 
         return array('error' => $err, 'msg' => $msg);
@@ -51,7 +60,7 @@ class Status_model extends Dany_Model {
         $errCode = $err['code'];
         $msg = $this->getErrorMessage($errCode, 'delete');
 
-        $status = 'success';
+        $status = $this->status($err['code']);
 
         if ($err['code'] == '1451') {
                 $CI =& get_instance();
@@ -62,7 +71,6 @@ class Status_model extends Dany_Model {
                 $labelname = $CI->Label_table_model->getlabel($table);
                 
                 $msg .= ', karena masih memiliki data ' . (!empty($table) ? '<strong>' . (empty($labelname) ? $label : $labelname)  . '</strong>' : '');    
-                $status = 'error';
         }
 
 

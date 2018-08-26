@@ -717,12 +717,12 @@ class Report extends Dany_Controller
             $col_strlen = array();
             foreach($get->result() as $r)
             {
-                $sitenilasewa       = $this->apps->to_money($r->sitenilasewa); // G
-                $oprnilaisewa       = $this->apps->to_money($r->oprnilaisewa); //L
-                $outstdsewaperthn   = $this->apps->to_money($r->outstdsewaperthn);
-                $outstdppn          = $this->apps->to_money($r->outstdppn);
-                $outjml             = $this->apps->to_money($r->outjml);
-                $sewatotal          = $this->apps->to_money($r->sewatotal);
+                $sitenilasewa       = to_money($r->sitenilasewa); // G
+                $oprnilaisewa       = to_money($r->oprnilaisewa); //L
+                $outstdsewaperthn   = to_money($r->outstdsewaperthn);
+                $outstdppn          = to_money($r->outstdppn);
+                $outjml             = to_money($r->outjml);
+                $sewatotal          = to_money($r->sewatotal);
 
                 $ws->setCellValue('A'.$baris, $baris-9);
                 $ws->setCellValue('B'.$baris, $r->operator);
@@ -731,13 +731,13 @@ class Report extends Dany_Controller
                 $ws->setCellValue('E'.$baris, $r->towerheight);
                 $ws->setCellValue('F'.$baris, strtoupper($r->sitestatus));
                 $ws->setCellValue('G'.$baris, $sitenilasewa);
-                $ws->setCellValue('H'.$baris, $r->leasestart == NULL ? '' : $this->apps->to_dmY($r->leasestart));
-                $ws->setCellValue('I'.$baris, $r->leaseend == NULL ? '' : $this->apps->to_dmY($r->leaseend));
+                $ws->setCellValue('H'.$baris, $r->leasestart == NULL ? '' : to_dmY($r->leasestart));
+                $ws->setCellValue('I'.$baris, $r->leaseend == NULL ? '' : to_dmY($r->leaseend));
                 $ws->setCellValue('J'.$baris, $r->sitedurasimonth == 0 ? $r->sitedurasiyear : $r->sitedurasiyear.'+'.$r->sitedurasimonth);
                 $ws->setCellValue('K'.$baris, $r->sitesisasewa);
                 $ws->setCellValue('L'.$baris, $oprnilaisewa);
                 $ws->setCellValue('M'.$baris, $r->oprlamasewa);
-                $ws->setCellValue('N'.$baris, $r->oprsewaawal == NULL ? '' : $this->apps->to_dmY($r->oprsewaawal));
+                $ws->setCellValue('N'.$baris, $r->oprsewaawal == NULL ? '' : to_dmY($r->oprsewaawal));
                 $ws->setCellValue('O'.$baris, 'Per '.$r->oprdurasi);
                 $ws->setCellValue('P'.$baris, $r->outstdth);
                 $ws->setCellValue('Q'.$baris, $outstdsewaperthn);
@@ -957,7 +957,7 @@ class Report extends Dany_Controller
                 // $objBold = $rsite->createTextRun($r->sitename);
                 // $objBold->getFont()->setBold(true);
 
-                $jumlah = $this->apps->to_money($r->jumlah);
+                $jumlah = to_money($r->jumlah);
 
                 $ws->setCellValue('A'.$baris, $baris-5);
                 $ws->setCellValue('B'.$baris, $r->siteid);
@@ -965,7 +965,7 @@ class Report extends Dany_Controller
                 $ws->setCellValue('D'.$baris, $r->keterangan);
                 $ws->setCellValue('E'.$baris, $r->jenis_biaya);
                 $ws->setCellValue('F'.$baris, $jumlah);
-                $ws->setCellValue('G'.$baris, $this->apps->to_dmY($r->tgl_bayar));
+                $ws->setCellValue('G'.$baris, to_dmY($r->tgl_bayar));
                 $ws->setCellValue('H'.$baris, $r->sudah_bayar);
 
                 $ws->getStyle('A'.$baris)->applyFromArray( $style_border );

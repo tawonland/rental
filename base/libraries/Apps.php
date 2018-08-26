@@ -51,26 +51,4 @@ class Apps
         return $y[2].'-'.$y[1].'-'.$y[0];
     }
 
-    public function to_dmY($tgl = '', $delimiter = '/')
-    {
-        if (empty($tgl)){
-            return NULL;
-        }
-
-        $y = explode('-', $tgl);
-        return $y[2].$delimiter.$y[1].$delimiter.$y[0];
-    }
-
-    public function to_money($str = '0'){
-        return number_format($str, '2', '.', ',');
-    }
-
-    public function status_expenses(){
-
-        $status = array();
-        $status[0] = 'Belum Realisasi';
-        $status[1] = 'Sudah Realisasi';
-        
-        return $status;
-    }
 }

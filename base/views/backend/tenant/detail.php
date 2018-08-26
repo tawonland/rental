@@ -204,13 +204,48 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Nilai Kontrak</label>
+                                <div class="col-sm-10">
+                                    <?php 
+                                    echo formx_input(array('id' => 'number', 'name' => 'nilai_kontrak'), isset($data['nilai_kontrak']) ? to_money($data['nilai_kontrak']) : '', $c_edit); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Masa Sistem Pembayaran</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="masa_sistem_pembayaran" value="<?php echo $data['masa_sistem_pembayaran']; ?>" class="form-control aneh" placeholder="Masa Sistem Pembayaran" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Periode Tagihan</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Per</span>
+                                            <?php echo formx_number(array('id' => 'periode_tagihan', 'name' => 'periode_tagihan'), !empty($data['periode_tagihan']) ? $data['periode_tagihan'] : '1', $c_edit); ?>
+                                        <span class="input-group-addon">Bulan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Nilai Invoice Pertagihan</label>
+                                <div class="col-sm-10">
+                                    <?php echo formx_input(array('id' => 'nilai_invoice_pertagihan', 'name' => 'nilai_invoice_pertagihan'), isset($data['nilai_invoice_pertagihan']) ? to_money($data['nilai_invoice_pertagihan']) : '', $c_edit); ?>
                                 </div>
                             </div>
                         </div>

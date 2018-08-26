@@ -69,7 +69,11 @@ class Penyewa_keuangan extends Dany_Controller
     
     public function add($id = 0, $idx = 0)
     {
-        $this->db->select('rsite.id1 as id, rsite_penyewa.id1 as idx, siteid, sitename, operator');
+        $this->db->select('rsite.id1 as id, 
+                            rsite_penyewa.id1 as idx, siteid, 
+                            sitename, operator,
+                            rsite_penyewa.nilai_invoice_pertagihan
+                        ');
         $this->db->from('rsite');
         $this->db->join('rsite_penyewa', 'rsite_penyewa.id_rsite = rsite.id1');
         $this->db->where('rsite.id1', $id);
@@ -118,6 +122,8 @@ class Penyewa_keuangan extends Dany_Controller
 			$tema['data'][$field->name] = set_value($field->name);
 		}
         
+        $tema['data']['nilai_invoice'] = $tema['site']->nilai_invoice_pertagihan;
+
         $tema['url']    = 'penyewa_keuangan/add/'.$id.'/'.$idx;
         $tema['tombol'] = 'Tambah';
         $tema['title']  = 'Tambah Penyewa Keuangan';
@@ -170,7 +176,7 @@ class Penyewa_keuangan extends Dany_Controller
             {
                 $idnya = $id;
                 
-                $this->session->set_flashdata('error', 'Data berhasil diubah');
+                $this->session->set_flashdata('success', 'Data berhasil diubah');
                 redirect('penyewa_keuangan/index/'.$id.'/'.$idx);
             }else{
                 $this->session->set_flashdata('error', 'Data gagal diubah');

@@ -1,15 +1,20 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-
 function formx_input($data = '', $value = '', $c_edit = true, $extra = '')
 {
     
-	$extra = '';
+	if(empty($extra)){
+		$extra = 'class="'._form_class().'"';
+	}
+
+	if($c_edit === FALSE){
+		$extra .= ' disabled';
+	}
 
 	return form_input($data, $value , $extra);	
 }
 
-function formx_email($data = '', $value = '', $c_edit = true, $extra = '')
+function formx_email($data = '', $value = '', $c_edit = TRUE, $extra = '')
 {
     
 	if($c_edit)
@@ -21,6 +26,26 @@ function formx_email($data = '', $value = '', $c_edit = true, $extra = '')
 		return $value;
 	}
 	
+}
+
+function formx_number($data = '', $value = '', $c_edit = TRUE, $extra = '')
+{
+    
+	if(empty($extra)){
+		$extra = 'class="'._form_class().'"';
+	}
+
+	if($c_edit === FALSE){
+		$extra .= ' disabled';
+	}
+
+	$defaults = array(
+		'type' => 'number',
+		'name' => is_array($data) ? '' : $data,
+		'value' => $value
+	);
+
+	return '<input '._parse_form_attributes($data, $defaults)._attributes_to_string($extra)." />\n";
 }
 
 
@@ -39,7 +64,7 @@ function formx_dropdown($data = '', $options = array(), $selected = array(), $c_
 {
 
 	if(empty($extra)){
-		$extra = _form_class();
+		$extra = 'class="'._form_class().'"';
 	}
 
 	if($c_edit === FALSE){
@@ -51,5 +76,5 @@ function formx_dropdown($data = '', $options = array(), $selected = array(), $c_
 
 function _form_class()
 {
-	return 'class="form-control input-sm"';
+	return 'form-control';
 }

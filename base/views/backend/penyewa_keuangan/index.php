@@ -35,6 +35,16 @@
 </div>
 <?php } ?>
 
+<?php if($this->session->flashdata('success')) { ?>
+<div class="note note-info">
+    <ul style="margin-left: -15px;margin-bottom: 0;">
+        <?php
+            echo '<li>'.$this->session->flashdata('success').'</li>';
+        ?>
+    </ul>
+</div>
+<?php } ?>
+
 <div class="row">
 	<div class="col-lg-12 col-xs-12 col-sm-12">
 		<div class="portlet light bordered">

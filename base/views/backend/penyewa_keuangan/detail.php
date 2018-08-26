@@ -152,7 +152,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Tgl. Bayar</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="no_po" value="<?php echo $this->apps->tgl_indo($data['tgl_bayar']); ?>" class="form-control aneh" placeholder="No. PO" disabled>
+                                    <input type="text" name="no_po" value="<?php echo tgl_indo($data['tgl_bayar']); ?>" class="form-control aneh" placeholder="No. PO" disabled>
                                 </div>
                             </div>
                         </div>

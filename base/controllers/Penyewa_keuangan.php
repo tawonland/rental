@@ -93,6 +93,9 @@ class Penyewa_keuangan extends Dany_Controller
             foreach ($fields as $field)
             {
                 if($field->name == 'id1') continue;
+                if($field->name == 'sudah_dicetak') continue;
+                if($field->name == 'sudah_dikirim') continue;
+                if($field->name == 'sudah_diterim_user') continue;
                 if($field->name == 'id_rsite_penyewa') {
                     $tmp = $tema['site'];
                     $kolom[$field->name] = $tmp->idx;
@@ -100,7 +103,11 @@ class Penyewa_keuangan extends Dany_Controller
                 }
                 $kolom[$field->name] = $this->input->post($field->name, true);
             }
+
+            $kolom['tgl_dikirim'] = date('Y-m-d');
             
+            unset($kolom['tgl_diterima_user']);
+
             $query = $this->db->insert('rsite_penyewa_keuangan', $kolom);
             
             if($query)
@@ -110,7 +117,8 @@ class Penyewa_keuangan extends Dany_Controller
                 $this->session->set_flashdata('error', 'Data berhasil ditambah');
                 redirect('penyewa_keuangan/index/'.$id.'/'.$idx);
             }else{
-                $this->session->set_flashdata('error', 'Data gagal ditambah');
+                $err = $this->db->error();
+                $this->session->set_flashdata('error', 'Data gagal ditambah'.$err['message']);
             }
         }
 

@@ -23,3 +23,29 @@ function status_expenses(){
     
     return $status;
 }
+
+function tgl_indo($tgl = '')
+    {
+        if (empty($tgl)){
+            return NULL;
+        }
+
+        $bulan = array (
+            0 => '00',
+            1 => 'Januari',
+                'Februari',
+                'Maret',
+                'April',
+                'Mei',
+                'Juni',
+                'Juli',
+                'Agustus',
+                'September',
+                'Oktober',
+                'November',
+                'Desember'
+        );
+        $x = explode(' ', $tgl);
+        $y = explode('-', $x[0]);
+        return $y[2].' '.$bulan[(int)$y[1]].' '.$y[0];
+    }

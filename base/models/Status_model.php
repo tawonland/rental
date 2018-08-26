@@ -21,6 +21,26 @@ class Status_model extends Dany_Model {
         return array('error' => $err, 'msg' => $msg);
     }
 
+    /**
+     * Status delete
+     * @return string
+     */
+    function updateStatus() {
+
+        $err = $this->db->error();
+        $errCode = $err['code'];
+        $msg = $this->getErrorMessage($errCode, 'update');
+        
+        if ($err['code'] == '1062') {                
+                $msg .= ', karena data tersebut sudah ada';    
+        }
+        else{
+            $msg .= ', ' . $err['message'];
+        }
+
+        return array('error' => $err, 'msg' => $msg);
+    }
+
 	/**
      * Status delete
      * @return string
@@ -31,6 +51,8 @@ class Status_model extends Dany_Model {
         $errCode = $err['code'];
         $msg = $this->getErrorMessage($errCode, 'delete');
 
+        $status = 'success';
+
         if ($err['code'] == '1451') {
                 $CI =& get_instance();
                 $CI->load->model('Label_table_model');
@@ -40,10 +62,11 @@ class Status_model extends Dany_Model {
                 $labelname = $CI->Label_table_model->getlabel($table);
                 
                 $msg .= ', karena masih memiliki data ' . (!empty($table) ? '<strong>' . (empty($labelname) ? $label : $labelname)  . '</strong>' : '');    
+                $status = 'error';
         }
 
 
-        return array('error' => $err, 'msg' => $msg);
+        return array('status' => $status, 'error' => $err, 'msg' => $msg);
     }
 
      /**

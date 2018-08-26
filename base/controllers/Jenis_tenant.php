@@ -11,9 +11,13 @@ class Jenis_tenant extends Dany_Controller
     public function index()
     {
         
-        $tema['title'] = 'Jenis Tenant';
-        $tema['tema'] = 'jenis_tenant/index';
-        $this->load->view('backend/theme', $tema);
+        $this->data['title'] = 'Jenis Tenant';
+        $this->data['subbreadcrumb'] = array('Jenis Tenant');
+        $this->data['content'] = 'backend/'.$this->router->class.'/index';
+        
+        $this->data['noteInfo'] = 'Data '.$this->data['title'];
+
+        $this->load->view('backend/theme', $this->data);
     }
 	
 	public function data($id = 0)
@@ -39,9 +43,13 @@ class Jenis_tenant extends Dany_Controller
     
     public function add($id = 0)
     {
+        $this->data['c_edit'] = TRUE;
+        //load model        
+        $this->load->model('Rsite_jenis_model');
         
         if($this->validasi())
         {
+
             $fields = $this->db->field_data('rsite_jns');
             $kolom = array();
             foreach ($fields as $field)
@@ -56,25 +64,18 @@ class Jenis_tenant extends Dany_Controller
             {
                 $idnya = $this->db->insert_id();
                 
-                $this->session->set_flashdata('error', 'Data berhasil ditambah');
+                $this->session->set_flashdata('success', 'Data berhasil ditambah');
                 redirect('jenis_tenant/index/'.$id);
             }else{
+
                 $this->load->model('Status_model');          
                 $insertStatus = $this->Status_model->insertStatus();
-                
+
+                $this->data['data'] = $kolom; 
+
                 $this->set_flashdata('error', $insertStatus['msg']);
             }
         }
-
-        $fields = $this->db->field_data('rsite_penyewa');
-		foreach ($fields as $field)
-		{
-			if($field->name == 'id1') continue;
-			if($field->name == 'id_rsite') continue;
-			if($field->name == 'id_bouwherr') continue;
-			if($field->name == 'operator') continue;
-			$tema['data'][$field->name] = set_value($field->name);
-		}
 
         $this->db->select('idbouwherr, nama');
         $this->db->from('bouwherr');
@@ -85,107 +86,96 @@ class Jenis_tenant extends Dany_Controller
             $c_id_bouwher[$value['idbouwherr']] = strtoupper($value['nama']);
         }
 
-        $tema['c_id_bouwher'] = $c_id_bouwher;
+        $this->data['c_rsite_jenis']  = $this->Rsite_jenis_model->c_rsite_jenis();
+        $this->data['c_id_bouwher']   = $c_id_bouwher;
+        $this->data['tombol'] = 'Tambah';
+        $this->data['title']  = 'Tambah Jenis Tenant';
         
-        $tema['url']    = 'jenis_tenant/add/'.$id;
-        $tema['tombol'] = 'Tambah';
-        $tema['title']  = 'Tambah Jenis Tenant';
-        $tema['tema']   = 'jenis_tenant/form';
-        $this->load->view('backend/theme', $tema);
+        $this->data['captionSubject']  = 'Data Jenis Tenant';
+        $this->data['form_action'] = base_url('jenis_tenant/add');
+        $this->data['form_data']  = 'backend/jenis_tenant/form';
+        $this->data['content']    = 'backend/inc_form_v';
+
+        $this->load->view('backend/theme', $this->data);
     }
     
-    public function edit($idx = 0, $id = 0)
+    public function edit($id = 0)
     {
-        $this->db->where('id1', $idx);
-        $xcek = $this->db->get('rsite');
-        if($xcek->num_rows() != 1)
-        {
-            $this->session->set_flashdata('error', 'Data tidak ditemukan');
-            redirect('site');
-        }
-        $tema['site'] = $xcek->row();
+        $this->data['c_edit'] = TRUE;
+        //load model        
+        $this->load->model('Rsite_jenis_model');
 
         $this->db->where('id1', $id);
-        $cek = $this->db->get('rsite_penyewa');
+        $cek = $this->db->get('rsite_jns');
         if($cek->num_rows() != 1)
         {
             $this->session->set_flashdata('error', 'Data tidak ditemukan');
-            redirect('tenant');
+            redirect('jenis_tenant');
         }
         
         if($this->validasi())
         {
-            $fields = $this->db->field_data('rsite_penyewa');
+            $fields = $this->db->field_data('rsite_jns');
             $kolom = array();
             foreach ($fields as $field)
             {
                 if($field->name == 'id1') continue;
-                if($field->name == 'operator') {
-                    $this->db->select('bouwherr.nama');
-                    $this->db->from('bouwherr');
-                    $this->db->where('bouwherr.idbouwherr', $this->input->post('id_bouwherr', true));
-                    $get = $this->db->get();
-                    if($get->num_rows() > 0)
-                    {
-                        $tmp = $get->row();
-                        $tmp = $tmp->nama;
-                        $kolom[$field->name] = $tmp;
-                    }
-                    continue;
-                }
-                if($field->name == 'id_rsite') {
-                    $tmp = $tema['site'];
-                    $kolom[$field->name] = $tmp->id1;
-                    continue;
-                }
                 $kolom[$field->name] = $this->input->post($field->name, true);
             }
             
             $this->db->where('id1', $id);
-            $query = $this->db->update('rsite_penyewa', $kolom);
+            $query = $this->db->update('rsite_jns', $kolom);
             
             if($query)
             {
                 $idnya = $id;
-                
-                $this->session->set_flashdata('error', 'Data berhasil diubah');
-                redirect('tenant/index/'.$idx);
+                $this->session->set_flashdata('success', 'Data berhasil diubah');
+                redirect('jenis_tenant/detail/'.$id);
             }else{
-                $this->session->set_flashdata('error', 'Data gagal diubah');
+                $this->load->model('Status_model');          
+                $insertStatus = $this->Status_model->updateStatus();
+                
+                $this->data['data'] = $kolom; 
+
+                $this->set_flashdata('error', $insertStatus['msg']);
             }
         }
         
-        $row = $cek->row_array();
-        $fields = $this->db->field_data('rsite_penyewa');
-		foreach ($fields as $field)
-		{
-			if($field->name == 'id1') continue;
-			//if($field->name == 'id_bouwherr') continue;
-			if($field->name == 'operator') continue;
-            $tema['data'][$field->name] = ($row[$field->name] == '' || set_value($field->name)) ? set_value($field->name) : $row[$field->name];
-		}
-        
-        $tema['url']    = 'tenant/edit/'.$idx.'/'.$id;
-        $tema['tombol'] = 'Edit';
-        $tema['title']  = 'Edit Penyewa';
-        $tema['tema']   = 'tenant/form';
-        $this->load->view('backend/theme', $tema);
-    }
-    
-    public function bouwherr($jenis = '')
-    {
-        $this->db->select('bouwherr.idbouwherr, bouwherr.nama');
-        $this->db->join('rsite_jns', 'rsite_jns.id_bouwher = bouwherr.idbouwherr');
-        $this->db->where('rsite_jns.jenis', $jenis);
-        $get = $this->db->get('bouwherr');
-        foreach($get->result() as $r)
-        {
-            echo '<option value="'.$r->idbouwherr.'">'.$r->nama.'</option>';
+        $this->db->select('idbouwherr, nama');
+        $this->db->from('bouwherr');
+        $get = $this->db->get();
+
+        $c_id_bouwher = array();
+        foreach ($get->result_array() as $key => $value) {
+            $c_id_bouwher[$value['idbouwherr']] = strtoupper($value['nama']);
         }
+
+        $row = $cek->row_array();
+        $fields = $this->db->field_data('rsite_jns');
+        foreach ($fields as $field)
+        {
+            if($field->name == 'id1') continue;
+            $this->data['data'][$field->name] = ($row[$field->name] == '' || set_value($field->name)) ? set_value($field->name) : $row[$field->name];
+        }
+
+        $this->data['c_rsite_jenis']  = $this->Rsite_jenis_model->c_rsite_jenis();
+        $this->data['c_id_bouwher'] = $c_id_bouwher;
+        $this->data['action'] = base_url('jenis_tenant/edit/'.$id);
+        $this->data['tombol'] = 'Edit';
+        $this->data['title']  = 'Edit Jenis Tenant';
+        
+        $this->data['captionSubject']   = $this->data['title'];
+        $this->data['form_action']      = base_url('jenis_tenant/add');
+        $this->data['form_data']        = 'backend/jenis_tenant/form';
+        $this->data['content']          = 'backend/inc_form_v';
+
+        $this->load->view('backend/theme', $this->data);
     }
-    
+        
     public function detail($id = 0)
     {
+        //load model        
+        $this->load->model('Rsite_jenis_model');
 
         $this->db->where('id1', $id);
         $cek = $this->db->get('rsite_jns');
@@ -200,7 +190,7 @@ class Jenis_tenant extends Dany_Controller
 		foreach ($fields as $field)
 		{
 			if($field->name == 'id1') continue;
-            $tema['data'][$field->name] = ($row[$field->name] == '' || set_value($field->name)) ? set_value($field->name) : $row[$field->name];
+            $this->data['data'][$field->name] = ($row[$field->name] == '' || set_value($field->name)) ? set_value($field->name) : $row[$field->name];
 		}
 
         $this->db->select('idbouwherr, nama');
@@ -212,12 +202,17 @@ class Jenis_tenant extends Dany_Controller
             $c_id_bouwher[$value['idbouwherr']] = strtoupper($value['nama']);
         }
 
-        $tema['c_id_bouwher'] = $c_id_bouwher;
-        
-        $tema['tombol'] = 'Detail';
-        $tema['title']  = 'Detail Jenis Tenant';
-        $tema['tema']   = 'jenis_tenant/detail';
-        $this->load->view('backend/theme', $tema);
+        $this->data['c_rsite_jenis']  = $this->Rsite_jenis_model->c_rsite_jenis();
+        $this->data['c_id_bouwher'] = $c_id_bouwher;
+        $this->data['tombol'] = 'Detail';
+        $this->data['title']  = 'Detail Jenis Tenant';
+
+        $this->data['captionSubject']   = $this->data['title'];
+        $this->data['form_action']      = base_url('jenis_tenant/add');
+        $this->data['form_data']        = 'backend/jenis_tenant/form';
+        $this->data['content']          = 'backend/inc_form_v';
+
+        $this->load->view('backend/theme', $this->data);
     }
     
     public function del($id = 0)
@@ -230,14 +225,15 @@ class Jenis_tenant extends Dany_Controller
         $this->load->model('Status_model');          
         $delStatus = $this->Status_model->deleteStatus();
         
-        $this->set_flashdata('error', $delStatus['msg']);
+        $this->set_flashdata($delStatus['status'], $delStatus['msg']);
         
         redirect($this->router->class);
     }
   
 	private function validasi($aneh = false)
 	{
-		$error = array(
+		
+        $error = array(
 			'required'      => 'Input %s tidak boleh kosong'
 		);
 

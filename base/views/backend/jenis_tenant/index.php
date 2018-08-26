@@ -1,32 +1,3 @@
-<div class="page-bar">
-	<ul class="page-breadcrumb">
-        <li>
-            <span>Dashboard</span>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>Jenis Tenant</span>
-        </li>
-	</ul>
-</div>
-<h1 class="page-title font-blue"> <?php echo $title?> | 
-    <small>Aplikasi BTS</small>
-</h1>
-
-<div class="note note-info">
-    <p>Data Jenis Tenant</p>
-</div>
-
-<?php if($this->session->flashdata('error')) { ?>
-<div class="note note-info">
-    <ul style="margin-left: -15px;margin-bottom: 0;">
-        <?php
-        echo '<li>'.$this->session->flashdata('error').'</li>';
-        ?>
-    </ul>
-</div>
-<?php } ?>
-
 <div class="row">
 	<div class="col-lg-12 col-xs-12 col-sm-12">
 		<div class="portlet light bordered">

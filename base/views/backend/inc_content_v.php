@@ -30,7 +30,7 @@
         echo 'Isikan data ' . $title . ' pada form berikut dengan lengkap dan benar';
     }
     else{
-        echo 'Data ' . $title;
+        echo isset($noteInfo) ? $noteInfo : 'Data '. $title;
     }
     ?>
 

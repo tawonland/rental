@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tenant extends Dany_Controller
+class Tenant extends Auth_Controller
 {
     public function __construct()
     {
@@ -122,10 +122,13 @@ class Tenant extends Dany_Controller
             $idtenant = $this->db->insert_id();
 
             //jike insert tenant berhasil -> insert invoice
+            $this->load->model('Penyewa_keuangan_model');
+            $generateNoInvoice = $this->Penyewa_keuangan_model->generateNoInvoice();
+            
             $kolominvoice = array();
             $kolominvoice['id_rsite_penyewa']   = $idtenant;
             $kolominvoice['tagihan_ke']         = '1';
-            $kolominvoice['no_invoice']         = '1';
+            $kolominvoice['no_invoice']         = $generateNoInvoice;
             $kolominvoice['tgl_invoice']        = date('Y-m-d');
             $kolominvoice['no_po']              = '1';
             $kolominvoice['nilai_invoice']      = $this->input->post('nilai_invoice_pertagihan',TRUE);

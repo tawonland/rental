@@ -25,27 +25,43 @@ function status_expenses(){
 }
 
 function tgl_indo($tgl = '')
-    {
-        if (empty($tgl)){
-            return NULL;
-        }
-
-        $bulan = array (
-            0 => '00',
-            1 => 'Januari',
-                'Februari',
-                'Maret',
-                'April',
-                'Mei',
-                'Juni',
-                'Juli',
-                'Agustus',
-                'September',
-                'Oktober',
-                'November',
-                'Desember'
-        );
-        $x = explode(' ', $tgl);
-        $y = explode('-', $x[0]);
-        return $y[2].' '.$bulan[(int)$y[1]].' '.$y[0];
+{
+    if (empty($tgl)){
+        return NULL;
     }
+    
+    $x = explode(' ', $tgl);
+    $y = explode('-', $x[0]);
+
+    if (!isset($y[0]) || !isset($y[1]) || !isset($y[2]))
+    {
+        return null;
+    }
+
+    $bulan = array (
+        1 => 'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+    );
+
+    if(!isset($bulan[(int)$y[1]]))
+    {
+        return null;
+    }
+
+    return $y[2].' '.$bulan[(int)$y[1]].' '.$y[0];
+}
+
+function arr_belumsudah()
+{
+    return array('Belum','Sudah');
+}

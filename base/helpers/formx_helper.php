@@ -14,6 +14,38 @@ function formx_input($data = '', $value = '', $c_edit = true, $extra = '')
 	return form_input($data, $value , $extra);	
 }
 
+function formx_inputdate($data = '', $value = '', $c_edit = true, $extra = '')
+{
+    
+	if(empty($extra)){
+		$extra = 'class="'._form_class().'"';
+		$extra .= 'autocomplete = "off" ';
+	}
+
+	if($c_edit === FALSE){
+		$extra .= ' disabled';
+	}
+
+	if(!$c_edit){
+		$value = tgl_indo($value);
+	}
+
+	if(!$c_edit){
+		return form_input($data, $value , $extra);
+	}
+
+	$form = '<div class="input-group">';
+	$form .= form_input($data, $value , $extra);
+	$form .= '<span class="input-group-btn">
+                <button class="btn default" type="button">
+                    <i class="fa fa-calendar"></i>
+                </button>
+            </span>';
+	$form .= '</div>';
+
+	return 	$form;
+}
+
 function formx_email($data = '', $value = '', $c_edit = TRUE, $extra = '')
 {
     
@@ -72,6 +104,12 @@ function formx_dropdown($data = '', $options = array(), $selected = array(), $c_
 	}
 
 	return form_dropdown($data, $options, $selected, $extra);
+}
+
+function formx_checkbox($data = '', $value = '', $checked = FALSE, $c_edit = TRUE, $extra = '')
+{
+	$extra = 'class="minimal"';
+	return form_checkbox($data, $value, $checked, $extra);
 }
 
 function _form_class()

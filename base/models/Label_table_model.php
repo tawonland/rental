@@ -1,5 +1,5 @@
 <?php
-class Label_table_model extends Dany_Model {
+class Label_table_model extends App_Model {
 
 	function getlabel($table_name){
 		

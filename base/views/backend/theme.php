@@ -31,6 +31,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <link href="<?php echo base_url()?>assets/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url()?>assets/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="<?php echo base_url()?>assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+        <link rel="stylesheet" href="<?php echo base_url()?>assets/plugins/iCheck/all.css">
+
         <link rel="shortcut icon" href="favicon.ico" />
         
         <style>
@@ -143,7 +146,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <img alt="" class="img-circle" src="<?php echo base_url()?>assets/img/avatar3_small.jpg" />
-                                    <span class="username username-hide-on-mobile"> Admin </span>
+                                    <span class="username username-hide-on-mobile"> <?php echo SessionManager::getUsername(); ?> </span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
@@ -161,7 +164,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </li>                                    
                                     <li class="divider"> </li>                                    
                                     <li>
-                                        <a href="page_user_login_1.html">
+                                        <a href="<?php echo base_url('logout')?>">
                                             <i class="icon-key"></i> Log Out </a>
                                     </li>
                                 </ul>
@@ -206,6 +209,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()?>assets/js/notification.js" type="text/javascript"></script>
     <script src="<?php echo base_url()?>assets/js/components-date-time-pickers.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url()?>assets/js/layout.min.js" type="text/javascript"></script>
+
+    <!-- iCheck 1.0.1 -->
+    <script src="<?php echo base_url()?>assets/plugins/iCheck/icheck.min.js"></script>
+
     <script>
     $(function(){
         <?php echo $this->apps->get_js(); ?>
@@ -222,7 +229,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           } catch(err) {
           }
         });
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+          checkboxClass: 'icheckbox_minimal-blue',
+          radioClass   : 'iradio_minimal-blue'
+        })
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+          checkboxClass: 'icheckbox_minimal-red',
+          radioClass   : 'iradio_minimal-red'
+        })
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+          checkboxClass: 'icheckbox_flat-green',
+          radioClass   : 'iradio_flat-green'
+        })
+    
     });
+
     </script>
     </body>
 </html>

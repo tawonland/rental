@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Penyewa_subkon extends Dany_Controller
+class Penyewa_subkon extends Auth_Controller
 {
     public function __construct()
     {

@@ -8,6 +8,12 @@
         <h3 class="uppercase bold">Menu Utama</h3>
     </li>
     <li class="nav-item">
+        <a href="<?php echo base_url('dashboard')?>" class="nav-link nav-toggle">
+            <i class="icon-home"></i>
+            <span class="title">Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a href="<?php echo base_url('site')?>" class="nav-link nav-toggle">
             <i class="icon-globe"></i>
             <span class="title">Site</span>
@@ -52,6 +58,12 @@
                 </a>
             </li>                                                                   
         </ul>
+    </li>
+    <li class="nav-item">
+        <a href="<?php echo base_url('notifikasi_invoice')?>" class="nav-link nav-toggle">
+            <i class="icon-credit-card"></i>
+            <span class="title">Notifikasi Invoice</span>
+        </a>
     </li>
     <li class="nav-item">
         <a href="<?php echo base_url('../gaia')?>" class="nav-link nav-toggle">

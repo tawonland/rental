@@ -52,7 +52,8 @@
 				<div class="caption font-green-sharp">                        
                     <span class="caption-subject bold uppercase"> Data Site</span>
                 </div>
-                <div class="actions">                    
+                <div class="actions">
+                    <a href="<?php echo base_url('penyewa_keuangan/create_invoice/'.$site->id.'/'.$site->idx); ?>" class="btn btn-circle btn-primary btn-sm"><i class="fa fa-credit-card"></i> Create Invoice</a>               
                     <a href="<?php echo base_url('penyewa_keuangan/add/'.$site->id.'/'.$site->idx); ?>" class="btn btn-circle btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Data</a>
                     <a href="<?php echo base_url('tenant/index/'.$site->id); ?>" class="btn btn-circle btn-primary btn-sm"><i class="fa fa-long-arrow-left"></i> Back</a>
                 </div>
@@ -128,7 +129,7 @@ var t = $('#mytable').DataTable({
         {"data": "tgl_bayar", "class": "text-center"},
         {"data": "aksi", "class": "text-center"}
     ],
-    "order": [[2, 'asc']],
+    "order": [[2, 'desc']],
     "rowCallback": function (row, data, iDisplayIndex) {
         var info = this.fnPagingInfo();
         var page = info.iPage;

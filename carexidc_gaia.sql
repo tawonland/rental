@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2018 at 04:06 PM
+-- Generation Time: Aug 30, 2018 at 12:54 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -961,7 +961,7 @@ INSERT INTO `rsite` (`id1`, `siteid`, `sitename`, `tpname`, `sitestatus`, `longi
 (10, '---CG.EJ.JBR.001', 'RAYA_SEMBORO', '-', 'on air', 0, 0, 'East Java', 'Jember', 'Dusun Krajan Utara, RT. 03 RW. 04 Desa Gadingrejo, Kel. Umbulsari, Kab. Jember, Jawa Timur.', 'Available', 'GF', 'SST-3legs', 0, 0, '-', 0, 0, 'Y', '>6 years'),
 (11, '---CG.EJ.BKL.004', 'Sepulu', '-', 'on air', 0, 2, 'East Java', 'Bangkalan', 'Desa Sepulu', 'Available', 'GF', 'SST-3legs', 20, 14, '-', 15, 15, 'Y', '>6 years'),
 (13, '---CG.EJ.MDN.001', 'Sumber Gandu', 'XL', 'on air', 111.662, -7.51903, 'East Java', 'Caruban', 'Desa Kedungrejo, Kec Pilangkenceng Kab. Madiun', 'Available', 'GF', 'SST-3legs', 0, 50, '-1', 0, 0, 'N', '>6 years'),
-(16, 'CG.EJ.BKL.001', 'Banyoneng Dajah', 'XL', 'on air', 112.956, -6.95458, 'EAST JAVA', 'Bangkalan', 'Desa Bangsareh, Kec. Bangkalan, Kabupaten Bangkalan', 'Available', 'GF', 'SST-3legs', 0, 70, 'yes', 0, 0, 'N', '> 6 years'),
+(16, 'CG.EJ.BKL.001', 'Banyoneng Dajah', 'XL', 'on air', 112.956, -6.95458, 'EAST JAVA', 'Bangkalan', 'Desa Bangsareh, Kec. Bangkalan, Kabupaten Bangkalan', 'Available', 'GF', 'SST-3legs', 0, 70, NULL, 0, 0, 'N', '> 6 years'),
 (17, 'CG.EJ.BKL.002', 'Petrah ', 'XL', 'on air', 112.901, -7.07531, 'EAST JAVA', 'Bangkalan', 'Desa Petrah Kec Tanah Merah Kab. Bangkalan', 'Available', 'GF', 'SST-3legs', 0, 70, 'yes', 0, 0, 'N', '> 6 years'),
 (18, 'CG.EJ.BKL.003', 'Lerpak', 'XL', 'on air', 112.934, -7.0245, 'EAST JAVA', 'Bangkalan', 'Dusun Dajjah, Desa Geger Kec Geger Kab Bangkalan', 'Available', 'GF', 'SST-3legs', 0, 70, 'yes', 0, 0, 'N', '> 6 years'),
 (19, 'CG.EJ.MDN.001', 'Sumber Gandu', 'XL', 'on air', 111.662, -7.51903, 'EAST JAVA', 'Caruban', 'Desa Kedungrejo, Kec Pilangkenceng Kab. Madiun', 'Available', 'GF', 'SST-3legs', 0, 50, 'yes', 0, 0, 'N', '> 6 years'),
@@ -996,19 +996,20 @@ CREATE TABLE IF NOT EXISTS `rsite_jns` (
 `id1` bigint(20) NOT NULL,
   `jenis` enum('b2s','collocation') NOT NULL,
   `id_bouwher` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1 COMMENT='jenis proses sewa, ada B2S dan collocation';
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1 COMMENT='jenis proses sewa, ada B2S dan collocation';
 
 --
 -- Dumping data for table `rsite_jns`
 --
 
 INSERT INTO `rsite_jns` (`id1`, `jenis`, `id_bouwher`) VALUES
-(23, 'b2s', 1),
+(70, 'b2s', 1),
 (24, 'b2s', 2),
 (26, 'b2s', 3),
-(31, 'b2s', 4),
-(27, 'collocation', 1),
-(30, 'collocation', 2);
+(62, 'b2s', 5),
+(30, 'collocation', 2),
+(59, 'collocation', 4),
+(39, 'collocation', 5);
 
 -- --------------------------------------------------------
 
@@ -1062,29 +1063,37 @@ CREATE TABLE IF NOT EXISTS `rsite_penyewa` (
   `status` enum('baru','selesai','perpanjang','ongoing') DEFAULT NULL,
   `masa_sistem_pembayaran` varchar(50) DEFAULT NULL,
   `nilai_kontrak` decimal(20,0) DEFAULT NULL,
-  `sewa_per_thn` decimal(20,0) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+  `sewa_per_thn` decimal(20,0) DEFAULT NULL,
+  `periode_tagihan` int(11) DEFAULT '1' COMMENT 'periode pemunculan invoice satuan dalam bulan',
+  `nilai_invoice_pertagihan` decimal(20,0) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rsite_penyewa`
 --
 
-INSERT INTO `rsite_penyewa` (`id1`, `id_rsite`, `jenis`, `id_bouwherr`, `operator`, `nospk`, `typeskn`, `tglspk`, `tglrfi`, `leasestart`, `leaseend`, `status`, `masa_sistem_pembayaran`, `nilai_kontrak`, `sewa_per_thn`) VALUES
-(2, 3, 'b2s', 4, 'XL Edit', 'SPK-212', 'kontrak', '2018-05-19', '2018-05-19', '2018-05-19', '2018-05-19', 'baru', '6 tahun', '1000000', '30000000'),
-(5, 6, 'collocation', 3, 'PT SMARTFREN', 'asasa', 'kontrak', '2018-05-27', '2018-05-27', '2018-05-27', '2018-05-27', 'baru', '6 tahun', '1000000', '40000000'),
-(6, 10, 'b2s', 2, 'PT INDOSAT.TBK', '12', '-', '2018-05-30', '2018-05-30', '2018-05-30', '2018-05-30', 'baru', '6 bulan', '1000000', '35000000'),
-(7, 11, 'b2s', 2, 'PT INDOSAT.TBK', '24/SPK/2018', '-', '2018-05-30', '2018-05-30', '2018-05-30', '2020-05-30', 'baru', '6 bulan', '1000000', '30000000'),
-(8, 6, 'b2s', 4, 'Excelcomindo', 'SPK-212', 'kontrak', '2018-06-01', '2018-06-01', '2018-06-01', '2018-06-01', '', '6 tahun', '1000000', '30000000'),
-(9, 13, 'b2s', 4, 'Excelcomindo', '-', '-', '2018-06-24', '2018-06-24', '2018-02-24', '2018-06-26', 'baru', '12 bulan', '1000000', '30000000'),
-(10, 13, 'collocation', 1, 'PT. Telkom Indonesia 12', '-', '-', '2018-06-24', '2018-06-24', '2018-06-24', '2018-06-24', 'baru', '6 bulan', '1000000', '30000000'),
-(12, 17, 'b2s', 1, 'PT. Telkom Indonesia 12', '6601415', 'Site Macro', '2011-12-21', '2012-07-16', '2012-07-08', '2012-07-08', '', '30 hari', '1000000', '30000000'),
-(13, 18, 'b2s', 4, 'Excelcomindo', '6601415', 'Macro', '2011-12-21', '2012-04-05', '2012-05-21', '2012-05-21', 'baru', '30 hari', '2000000', '30000000'),
-(14, 19, 'b2s', 4, 'Excelcomindo', '6600944', 'Site Macro', '2011-03-18', '2011-06-25', '2011-07-19', '2011-07-19', '', '30 hari', '1000000', '30000000'),
-(15, 20, 'b2s', 4, 'Excelcomindo', '6600224', 'Site Macro', '2011-12-07', '2011-07-13', '2012-07-08', '2022-07-08', '', '30 hari', '1000000', '30000000'),
-(16, 27, 'b2s', 4, 'Excelcomindo', '6601415', 'Site Macro', '2011-12-21', '2012-07-16', '2012-07-08', '2022-07-08', '', '30 hari', '1000000', '30000000'),
-(17, 28, 'b2s', 4, 'Excelcomindo', '6601916', 'Site Macro', '2012-09-21', '2012-05-28', '2012-06-22', '2022-06-22', 'baru', '30 hari', '1000000', '30000000'),
-(18, 29, 'b2s', 1, 'PT. Telkom Indonesia 12', '6606051', 'Site Macro', '2012-11-30', '2012-12-19', '2012-12-21', '2022-12-21', '', '30 hari', '1000000', '30000000'),
-(19, 16, 'b2s', 4, 'Excelcomindo', '6600101', 'Site Macro', '2011-11-05', '2012-02-23', '2012-04-17', '2012-04-17', 'baru', '30 hari', '1000000', NULL);
+INSERT INTO `rsite_penyewa` (`id1`, `id_rsite`, `jenis`, `id_bouwherr`, `operator`, `nospk`, `typeskn`, `tglspk`, `tglrfi`, `leasestart`, `leaseend`, `status`, `masa_sistem_pembayaran`, `nilai_kontrak`, `sewa_per_thn`, `periode_tagihan`, `nilai_invoice_pertagihan`) VALUES
+(2, 3, 'b2s', 4, 'XL Edit', 'SPK-212', 'kontrak', '2018-05-19', '2018-05-19', '2018-05-19', '2018-05-19', 'baru', '6 tahun', '1000000', '30000000', 1, NULL),
+(5, 6, 'collocation', 3, 'PT SMARTFREN', 'asasa', 'kontrak', '2018-05-27', '2018-05-27', '2018-05-27', '2018-05-27', 'baru', '6 tahun', '1000000', '40000000', 1, NULL),
+(6, 10, 'b2s', 2, 'PT INDOSAT.TBK', '12', '-', '2018-05-30', '2018-05-30', '2018-05-30', '2018-05-30', 'baru', '6 bulan', '1000000', '35000000', 1, NULL),
+(7, 11, 'b2s', 2, 'PT INDOSAT.TBK', '24/SPK/2018', '-', '2018-05-30', '2018-05-30', '2018-05-30', '2020-05-30', 'baru', '6 bulan', '1000000', '30000000', 1, NULL),
+(8, 6, 'b2s', 4, 'Excelcomindo', 'SPK-212', 'kontrak', '2018-06-01', '2018-06-01', '2018-06-01', '2018-06-01', '', '6 tahun', '1000000', '30000000', 1, NULL),
+(9, 13, 'b2s', 4, 'Excelcomindo', '-', '-', '2018-06-24', '2018-06-24', '2018-02-24', '2018-06-26', 'baru', '12 bulan', '1000000', '30000000', 1, NULL),
+(10, 13, 'collocation', 1, 'PT. Telkom Indonesia 12', '-', '-', '2018-06-24', '2018-06-24', '2018-06-24', '2018-06-24', 'baru', '6 bulan', '1000000', '30000000', 1, NULL),
+(12, 17, 'b2s', 1, 'PT. Telkom Indonesia 12', '6601415', 'Site Macro', '2011-12-21', '2012-07-16', '2012-07-08', '2012-07-08', '', '30 hari', '1000000', '30000000', 1, NULL),
+(13, 18, 'b2s', 4, 'Excelcomindo', '6601415', 'Macro', '2011-12-21', '2012-04-05', '2012-05-21', '2012-05-21', 'baru', '30 hari', '2000000', '30000000', 1, NULL),
+(14, 19, 'b2s', 4, 'Excelcomindo', '6600944', 'Site Macro', '2011-03-18', '2011-06-25', '2011-07-19', '2011-07-19', '', '30 hari', '1000000', '30000000', 1, NULL),
+(15, 20, 'b2s', 4, 'Excelcomindo', '6600224', 'Site Macro', '2011-12-07', '2011-07-13', '2012-07-08', '2022-07-08', '', '30 hari', '1000000', '30000000', 1, NULL),
+(16, 27, 'b2s', 4, 'Excelcomindo', '6601415', 'Site Macro', '2011-12-21', '2012-07-16', '2012-07-08', '2022-07-08', '', '30 hari', '1000000', '30000000', 1, NULL),
+(17, 28, 'b2s', 4, 'Excelcomindo', '6601916', 'Site Macro', '2012-09-21', '2012-05-28', '2012-06-22', '2022-06-22', 'baru', '30 hari', '1000000', '30000000', 1, NULL),
+(18, 29, 'b2s', 1, 'PT. Telkom Indonesia 12', '6606051', 'Site Macro', '2012-11-30', '2012-12-19', '2012-12-21', '2022-12-21', '', '30 hari', '1000000', '30000000', 1, NULL),
+(19, 16, 'b2s', 1, 'PT. Telkom Indonesia 12', '6600101', 'Site Macro', '2011-11-05', '2012-02-23', '2012-04-17', '2012-04-17', 'baru', '30 hari', NULL, NULL, 1, NULL),
+(20, 16, 'b2s', 1, 'PT. Telkom Indonesia 12', '6600101', 'Site Macro', '2018-08-26', '2018-08-26', '2018-08-26', '2018-08-26', 'baru', '30 hari', '100000001', NULL, 1, NULL),
+(21, 16, 'b2s', 1, 'PT. Telkom Indonesia 12', '6600101', 'Site Macro', '2018-08-26', '2018-08-26', '2018-08-26', '2018-08-26', 'baru', '30 hari', '50000000', NULL, 1, NULL),
+(22, 16, 'b2s', 1, 'PT. Telkom Indonesia 12', '6600101', 'Site Macro', '2018-08-26', '2018-08-26', '2018-08-26', '2018-08-26', 'baru', '30 hari', '2000000', NULL, 1, '1000000'),
+(25, 16, 'b2s', 1, 'PT. Telkom Indonesia 12', '6600101', 'Site Macro', '2018-08-26', '2018-08-26', '2018-08-26', '2018-08-26', 'baru', '30 hari', '100000000', NULL, 1, '3000000'),
+(26, 16, 'b2s', 1, 'PT. Telkom Indonesia 12', '6600101', 'Site Macro', '2018-08-26', '2018-08-26', '2018-08-26', '2018-08-26', 'baru', '30 hari', '200000000', NULL, 1, '3000000'),
+(29, 16, 'b2s', 1, 'PT. Telkom Indonesia 12', '6600101', 'Site Macro', '2018-08-28', '2018-08-28', '2018-08-28', '2018-08-28', 'baru', '30 hari', '10000000', NULL, 2, '2000000');
 
 -- --------------------------------------------------------
 
@@ -1149,20 +1158,36 @@ CREATE TABLE IF NOT EXISTS `rsite_penyewa_keuangan` (
   `tgl_invoice` date NOT NULL,
   `no_po` varchar(100) NOT NULL COMMENT 'dasar PO',
   `sudah_dibayar` smallint(6) NOT NULL DEFAULT '0' COMMENT '0 : belum / 1 sudah',
-  `tgl_bayar` date NOT NULL,
-  `nilai_invoice` decimal(20,0) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `tgl_bayar` date DEFAULT NULL,
+  `nilai_invoice` decimal(20,0) NOT NULL,
+  `sudah_dicetak` smallint(6) NOT NULL DEFAULT '0' COMMENT 'menunjukkan sudah di cetak atau belum',
+  `sudah_dikirim` smallint(6) NOT NULL DEFAULT '0',
+  `tgl_dikirim` date DEFAULT NULL,
+  `sudah_diterim_user` smallint(6) NOT NULL DEFAULT '0',
+  `tgl_diterima_user` date DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rsite_penyewa_keuangan`
 --
 
-INSERT INTO `rsite_penyewa_keuangan` (`id1`, `id_rsite_penyewa`, `tagihan_ke`, `no_invoice`, `tgl_invoice`, `no_po`, `sudah_dibayar`, `tgl_bayar`, `nilai_invoice`) VALUES
-(1, 2, '', '12345', '2018-05-19', '67890 Edit', 1, '2018-05-19', '1500000'),
-(4, 5, '', '13', '2018-05-29', '13', 0, '2018-05-29', '4500000'),
-(5, 7, '', '21', '2018-05-30', '21/2018', 0, '2018-05-30', '17500000'),
-(6, 9, '', '12', '2018-06-24', '12', 0, '2018-06-24', '6500000'),
-(8, 19, '1', '2', '2018-08-20', '1', 0, '2018-08-20', '1000');
+INSERT INTO `rsite_penyewa_keuangan` (`id1`, `id_rsite_penyewa`, `tagihan_ke`, `no_invoice`, `tgl_invoice`, `no_po`, `sudah_dibayar`, `tgl_bayar`, `nilai_invoice`, `sudah_dicetak`, `sudah_dikirim`, `tgl_dikirim`, `sudah_diterim_user`, `tgl_diterima_user`) VALUES
+(1, 2, '', '12345', '2018-05-19', '67890 Edit', 1, '2018-05-19', '1500000', 0, 0, '0000-00-00', 0, '0000-00-00'),
+(4, 5, '', '13', '2018-05-29', '13', 0, '2018-05-29', '4500000', 0, 0, '0000-00-00', 0, '0000-00-00'),
+(5, 7, '', '21', '2018-05-30', '21/2018', 0, '2018-05-30', '17500000', 0, 0, '0000-00-00', 0, '0000-00-00'),
+(6, 9, '', '12', '2018-06-24', '12', 0, '2018-06-24', '6500000', 0, 0, '0000-00-00', 0, '0000-00-00'),
+(12, 26, '1', '1', '2018-08-26', '1', 0, '0000-11-30', '3200000', 1, 0, '0000-00-00', 1, '2018-08-27'),
+(13, 26, '2', '2', '2018-08-26', '1', 0, '2018-08-26', '3200000', 0, 0, '0000-00-00', 0, '0000-00-00'),
+(16, 26, '4', '4', '2018-08-27', '1', 0, '2018-08-27', '3000000', 0, 0, '2018-08-27', 0, '0000-00-00'),
+(20, 26, '12', '11', '2018-08-27', '1', 0, '0000-00-00', '3000000', 0, 0, '2018-08-27', 0, '0000-00-00'),
+(25, 25, '2', '16252', '2018-08-28', '1', 0, '0000-00-00', '3000000', 0, 0, '2018-08-28', 0, '0000-00-00'),
+(26, 25, '3', '00000000026', '2018-08-28', '1', 0, '0000-00-00', '3000000', 0, 0, '2018-08-28', 0, '0000-00-00'),
+(27, 25, '4', '00000000027', '2018-08-28', '1', 0, '0000-00-00', '3000000', 0, 0, '2018-08-28', 0, '0000-00-00'),
+(28, 25, '5', '00000000028', '2018-08-28', '1', 0, '0000-00-00', '3000000', 0, 0, '2018-08-28', 0, '0000-00-00'),
+(30, 29, '1', '00000000029', '2018-08-28', '1', 0, '0000-00-00', '2000000', 0, 0, '0000-00-00', 0, '0000-00-00'),
+(31, 29, '2', '00000000031', '2018-08-28', '1', 0, '2018-08-28', '2000000', 0, 0, '2018-08-28', 0, '0000-00-00'),
+(36, 29, '3', '00000000032', '2018-08-28', '1', 0, NULL, '2000000', 0, 0, '2018-08-29', 0, NULL),
+(44, 29, '4', '00000000036', '2018-08-29', '1', 0, NULL, '2000000', 0, 0, '2018-08-29', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1207,7 +1232,7 @@ CREATE TABLE IF NOT EXISTS `rsite_sewa` (
   `leaseend` date DEFAULT NULL,
   `keterangan` varchar(100) DEFAULT '0',
   `nilai_sewa` decimal(20,0) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rsite_sewa`
@@ -1239,9 +1264,26 @@ INSERT INTO `rsite_sewa` (`id1`, `id_rsite`, `leasestart`, `leaseend`, `keterang
 (43, 38, '2018-08-16', '2018-08-16', '', NULL),
 (44, 39, '2018-08-16', '2018-08-16', '', NULL),
 (47, 30, '2018-08-16', '2018-08-16', '', NULL),
-(48, 27, '2012-07-08', '2012-07-08', '', NULL),
-(49, 16, '2018-08-23', '2018-08-23', 'coba----', '2000000'),
-(50, 16, '2018-08-23', '2018-08-23', 'coba----', '3000000');
+(48, 27, '2012-07-08', '2012-07-16', '', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tlogin`
+--
+
+CREATE TABLE IF NOT EXISTS `tlogin` (
+  `uname` varchar(50) NOT NULL,
+  `pwd` varchar(120) DEFAULT NULL,
+  `level` enum('1','2','3') DEFAULT NULL COMMENT '1 : admin, 2: manajemen, 3: operator'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tlogin`
+--
+
+INSERT INTO `tlogin` (`uname`, `pwd`, `level`) VALUES
+('admin', '$2y$10$t.a.WDVHWhCFIJa/GtP0q.L4Y8hJyc0ibDD8WzlUrXBo6/dXQ//G.', '1');
 
 -- --------------------------------------------------------
 
@@ -1499,6 +1541,17 @@ CREATE TABLE IF NOT EXISTS `v_rfs_duetime` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `v_rsite_blm_bayar`
+--
+CREATE TABLE IF NOT EXISTS `v_rsite_blm_bayar` (
+`id1` bigint(20)
+,`id_rsite` bigint(20)
+,`operator` varchar(50)
+,`tgl_invoice` date
+);
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `v_rsite_datarental`
 --
 CREATE TABLE IF NOT EXISTS `v_rsite_datarental` (
@@ -1568,6 +1621,34 @@ CREATE TABLE IF NOT EXISTS `v_rsite_gaji` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `v_rsite_invoice_blm_cetak`
+--
+CREATE TABLE IF NOT EXISTS `v_rsite_invoice_blm_cetak` (
+`id1` bigint(20)
+,`siteid` varchar(50)
+,`sitename` varchar(50)
+,`operator` varchar(50)
+,`id_bouwherr` bigint(20)
+,`masa_sistem_pembayaran` varchar(50)
+,`periode_tagihan` int(11)
+,`tagihan_ke` varchar(200)
+,`no_invoice` varchar(100)
+,`tgl_invoice` date
+,`sudah_dicetak` smallint(6)
+,`nilai_invoice` decimal(20,0)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_rsite_jml_tenant`
+--
+CREATE TABLE IF NOT EXISTS `v_rsite_jml_tenant` (
+`id_rsite` bigint(20)
+,`jml_tenant` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `v_rsite_rekap`
 --
 CREATE TABLE IF NOT EXISTS `v_rsite_rekap` (
@@ -1586,7 +1667,7 @@ CREATE TABLE IF NOT EXISTS `v_rsite_rekap` (
 ,`oprnilaisewa` decimal(20,0)
 ,`oprlamasewa` bigint(21)
 ,`oprsewaawal` date
-,`oprdurasi` varchar(50)
+,`oprdurasi` int(11)
 ,`opleaseend` date
 ,`outstdth` bigint(21)
 ,`outstdsewaperthn` decimal(20,0)
@@ -1771,6 +1852,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`carexidc`@`localhost` SQL SECURITY DEFINER V
 -- --------------------------------------------------------
 
 --
+-- Structure for view `v_rsite_blm_bayar`
+--
+DROP TABLE IF EXISTS `v_rsite_blm_bayar`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_rsite_blm_bayar` AS select `a`.`id1` AS `id1`,`a`.`id_rsite` AS `id_rsite`,`a`.`operator` AS `operator`,`b`.`tgl_invoice` AS `tgl_invoice` from (`rsite_penyewa` `a` join `rsite_penyewa_keuangan` `b` on((`a`.`id1` = `b`.`id_rsite_penyewa`))) where (`b`.`sudah_dibayar` = 0) order by `b`.`tgl_invoice`;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `v_rsite_datarental`
 --
 DROP TABLE IF EXISTS `v_rsite_datarental`;
@@ -1807,11 +1897,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`carexidc`@`localhost` SQL SECURITY DEFINER V
 -- --------------------------------------------------------
 
 --
+-- Structure for view `v_rsite_invoice_blm_cetak`
+--
+DROP TABLE IF EXISTS `v_rsite_invoice_blm_cetak`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_rsite_invoice_blm_cetak` AS select `rsite`.`id1` AS `id1`,`rsite`.`siteid` AS `siteid`,`rsite`.`sitename` AS `sitename`,`rsite_penyewa`.`operator` AS `operator`,`rsite_penyewa`.`id_bouwherr` AS `id_bouwherr`,`rsite_penyewa`.`masa_sistem_pembayaran` AS `masa_sistem_pembayaran`,`rsite_penyewa`.`periode_tagihan` AS `periode_tagihan`,`rsite_penyewa_keuangan`.`tagihan_ke` AS `tagihan_ke`,`rsite_penyewa_keuangan`.`no_invoice` AS `no_invoice`,`rsite_penyewa_keuangan`.`tgl_invoice` AS `tgl_invoice`,`rsite_penyewa_keuangan`.`sudah_dicetak` AS `sudah_dicetak`,`rsite_penyewa_keuangan`.`nilai_invoice` AS `nilai_invoice` from ((`rsite_penyewa_keuangan` join `rsite_penyewa` on((`rsite_penyewa_keuangan`.`id_rsite_penyewa` = `rsite_penyewa`.`id1`))) join `rsite` on((`rsite_penyewa`.`id_rsite` = `rsite`.`id1`))) where (isnull(`rsite_penyewa_keuangan`.`sudah_dicetak`) or (`rsite_penyewa_keuangan`.`sudah_dicetak` = 0)) order by `rsite`.`sitename`,`rsite_penyewa`.`operator`,`rsite_penyewa_keuangan`.`tgl_invoice`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_rsite_jml_tenant`
+--
+DROP TABLE IF EXISTS `v_rsite_jml_tenant`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_rsite_jml_tenant` AS select `a`.`id_rsite` AS `id_rsite`,count(`a`.`id1`) AS `jml_tenant` from `rsite_penyewa` `a` group by `a`.`id_rsite`;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `v_rsite_rekap`
 --
 DROP TABLE IF EXISTS `v_rsite_rekap`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_rsite_rekap` AS select `a`.`id1` AS `idoperator`,`a`.`operator` AS `operator`,`b`.`sitename` AS `sitename`,`b`.`city` AS `city`,`b`.`towerheight` AS `towerheight`,`b`.`sitestatus` AS `sitestatus`,`c`.`nilai_sewa` AS `sitenilasewa`,`c`.`leasestart` AS `leasestart`,`c`.`leaseend` AS `leaseend`,timestampdiff(YEAR,`c`.`leasestart`,`c`.`leaseend`) AS `sitedurasiyear`,timestampdiff(MONTH,concat_ws('-',year(`c`.`leaseend`),date_format(`c`.`leasestart`,'%m-%d')),`c`.`leaseend`) AS `sitedurasimonth`,round((timestampdiff(DAY,now(),`a`.`leaseend`) / 365),2) AS `sitesisasewa`,`a`.`nilai_kontrak` AS `oprnilaisewa`,timestampdiff(YEAR,`a`.`leasestart`,`a`.`leaseend`) AS `oprlamasewa`,`a`.`leasestart` AS `oprsewaawal`,`a`.`masa_sistem_pembayaran` AS `oprdurasi`,`a`.`leaseend` AS `opleaseend`,timestampdiff(YEAR,now(),`a`.`leaseend`) AS `outstdth`,`a`.`sewa_per_thn` AS `outstdsewaperthn`,((`a`.`sewa_per_thn` * 10) / 100) AS `outstdppn`,(`a`.`sewa_per_thn` + ((`a`.`sewa_per_thn` * 10) / 100)) AS `outjml`,(timestampdiff(YEAR,now(),`a`.`leaseend`) * (`a`.`sewa_per_thn` + ((`a`.`sewa_per_thn` * 10) / 100))) AS `sewatotal` from ((`rsite_penyewa` `a` join `rsite` `b` on((`b`.`id1` = `a`.`id_rsite`))) left join `v_rsite_sewa_lastrecord` `c` on((`c`.`id_rsite` = `b`.`id1`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_rsite_rekap` AS select `a`.`id1` AS `idoperator`,`a`.`operator` AS `operator`,`b`.`sitename` AS `sitename`,`b`.`city` AS `city`,`b`.`towerheight` AS `towerheight`,`b`.`sitestatus` AS `sitestatus`,`c`.`nilai_sewa` AS `sitenilasewa`,`c`.`leasestart` AS `leasestart`,`c`.`leaseend` AS `leaseend`,timestampdiff(YEAR,`c`.`leasestart`,`c`.`leaseend`) AS `sitedurasiyear`,timestampdiff(MONTH,concat_ws('-',year(`c`.`leaseend`),date_format(`c`.`leasestart`,'%m-%d')),`c`.`leaseend`) AS `sitedurasimonth`,round((timestampdiff(DAY,now(),`a`.`leaseend`) / 365),2) AS `sitesisasewa`,`a`.`nilai_kontrak` AS `oprnilaisewa`,timestampdiff(YEAR,`a`.`leasestart`,`a`.`leaseend`) AS `oprlamasewa`,`a`.`leasestart` AS `oprsewaawal`,`a`.`periode_tagihan` AS `oprdurasi`,`a`.`leaseend` AS `opleaseend`,timestampdiff(YEAR,now(),`a`.`leaseend`) AS `outstdth`,`a`.`sewa_per_thn` AS `outstdsewaperthn`,((`a`.`sewa_per_thn` * 10) / 100) AS `outstdppn`,(`a`.`sewa_per_thn` + ((`a`.`sewa_per_thn` * 10) / 100)) AS `outjml`,(timestampdiff(YEAR,now(),`a`.`leaseend`) * (`a`.`sewa_per_thn` + ((`a`.`sewa_per_thn` * 10) / 100))) AS `sewatotal` from ((`rsite_penyewa` `a` join `rsite` `b` on((`b`.`id1` = `a`.`id_rsite`))) left join `v_rsite_sewa_lastrecord` `c` on((`c`.`id_rsite` = `b`.`id1`)));
 
 -- --------------------------------------------------------
 
@@ -2016,7 +2124,7 @@ ALTER TABLE `rsite_penyewa_file`
 -- Indexes for table `rsite_penyewa_keuangan`
 --
 ALTER TABLE `rsite_penyewa_keuangan`
- ADD PRIMARY KEY (`id1`), ADD KEY `FK_rsite_penyewa_keuangan_rsite_penyewa` (`id_rsite_penyewa`);
+ ADD PRIMARY KEY (`id1`), ADD UNIQUE KEY `INDEX_tagihan_ke` (`id_rsite_penyewa`,`tagihan_ke`) USING BTREE COMMENT 'satu penyewa tidak boleh mempunyai no tagihan yang sama', ADD UNIQUE KEY `INDEX_no_invoice` (`no_invoice`) USING BTREE COMMENT 'No Invoice tidak boleh ada yang sama', ADD KEY `FK_rsite_penyewa_keuangan_rsite_penyewa` (`id_rsite_penyewa`);
 
 --
 -- Indexes for table `rsite_penyewa_subkon`
@@ -2029,6 +2137,12 @@ ALTER TABLE `rsite_penyewa_subkon`
 --
 ALTER TABLE `rsite_sewa`
  ADD PRIMARY KEY (`id1`), ADD KEY `FK_rsite_sewa_rsite` (`id_rsite`);
+
+--
+-- Indexes for table `tlogin`
+--
+ALTER TABLE `tlogin`
+ ADD PRIMARY KEY (`uname`);
 
 --
 -- Indexes for table `tvariabel`
@@ -2159,7 +2273,7 @@ MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 -- AUTO_INCREMENT for table `rsite_jns`
 --
 ALTER TABLE `rsite_jns`
-MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
 --
 -- AUTO_INCREMENT for table `rsite_pengeluaran`
 --
@@ -2169,7 +2283,7 @@ MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT for table `rsite_penyewa`
 --
 ALTER TABLE `rsite_penyewa`
-MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `rsite_penyewa_aman`
 --
@@ -2184,7 +2298,7 @@ MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT for table `rsite_penyewa_keuangan`
 --
 ALTER TABLE `rsite_penyewa_keuangan`
-MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT for table `rsite_penyewa_subkon`
 --
@@ -2194,7 +2308,7 @@ MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `rsite_sewa`
 --
 ALTER TABLE `rsite_sewa`
-MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
+MODIFY `id1` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 --
 -- Constraints for dumped tables
 --

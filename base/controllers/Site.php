@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Site extends Dany_Controller
+class Site extends Auth_Controller
 {
     public function __construct()
     {
@@ -75,7 +75,7 @@ class Site extends Dany_Controller
                 
                 $query = $this->db->insert('rsite_sewa', $kolom);
                 
-                $this->session->set_flashdata('error', 'Data berhasil ditambah');
+                $this->session->set_flashdata('success', 'Data berhasil ditambah');
                 redirect('site');
             }else{
                 $this->session->set_flashdata('error', 'Data gagal ditambah');
@@ -130,7 +130,7 @@ class Site extends Dany_Controller
             {
                 $idnya = $id;
                 
-                $this->session->set_flashdata('error', 'Data berhasil diubah');
+                $this->session->set_flashdata('success', 'Data berhasil diubah');
                 redirect('site');
             }else{
                 $this->session->set_flashdata('error', 'Data gagal diubah');

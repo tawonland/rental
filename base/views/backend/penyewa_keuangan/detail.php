@@ -152,7 +152,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Tgl. Bayar</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="no_po" value="<?php echo tgl_indo($data['tgl_bayar']); ?>" class="form-control aneh" placeholder="No. PO" disabled>
+                                    <input type="text" name="no_po" value="<?php echo tgl_indo($data['tgl_bayar']); ?>" class="form-control aneh" disabled>
                                 </div>
                             </div>
                         </div>
@@ -168,6 +168,51 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Sudah Dicetak</label>
+                                <div class="col-sm-10">
+                                    <?php echo formx_dropdown(array('id' => 'sudah_dicetak', 'name' => 'sudah_dicetak'), arr_belumsudah(), isset($data['sudah_dicetak']) ? $data['sudah_dicetak'] : '', $c_edit); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Sudah Dikirim</label>
+                                <div class="col-sm-10">
+                                    <?php echo formx_dropdown(array('id' => 'sudah_dikirim', 'name' => 'sudah_dikirim'), arr_belumsudah(), isset($data['sudah_dikirim']) ? $data['sudah_dikirim'] : '', $c_edit); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Sudah Diterima User</label>
+                                <div class="col-sm-10">
+                                      <?php echo formx_dropdown(array('id' => 'sudah_diterim_user', 'name' => 'sudah_diterim_user'), arr_belumsudah(), isset($data['sudah_diterim_user']) ? $data['sudah_diterim_user'] : '', $c_edit) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Tgl. Diterima User</label>
+                                <div class="col-sm-10">
+                                    <?php echo formx_inputdate(array('id' => 'tgl_diterima_user', 'name' => 'tgl_diterima_user'), $data['tgl_diterima_user'], $c_edit); ?>                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </form>
             
 			</div>

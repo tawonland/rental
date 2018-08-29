@@ -17,11 +17,27 @@
     <p>Data Site</p>
 </div>
 
-<?php if($this->session->flashdata('error')) { ?>
+<?php 
+$err_msg = $this->session->flashdata('error');
+
+if(isset($err_msg) || validation_errors()) { ?>
+<div class="note note-danger">
+    <ul style="margin-left: -15px;margin-bottom: 0;">
+        <?php
+        if($this->session->flashdata('error')){
+            echo '<li>'.$err_msg.'</li>';
+        }
+        ?>
+        <?php echo validation_errors('<li>','</li>'); ?>
+    </ul>
+</div>
+<?php } ?>
+
+<?php if($this->session->flashdata('success')) { ?>
 <div class="note note-info">
     <ul style="margin-left: -15px;margin-bottom: 0;">
         <?php
-        echo '<li>'.$this->session->flashdata('error').'</li>';
+            echo '<li>'.$this->session->flashdata('success').'</li>';
         ?>
     </ul>
 </div>

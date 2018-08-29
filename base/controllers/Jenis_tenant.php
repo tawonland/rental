@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Jenis_tenant extends Dany_Controller
+class Jenis_tenant extends Auth_Controller
 {
     public function __construct()
     {
@@ -88,6 +88,9 @@ class Jenis_tenant extends Dany_Controller
 
         $this->data['c_rsite_jenis']  = $this->Rsite_jenis_model->c_rsite_jenis();
         $this->data['c_id_bouwher']   = $c_id_bouwher;
+
+        $this->data['subbreadcrumb'] = array('Jenis Tenant');
+
         $this->data['tombol'] = 'Tambah';
         $this->data['title']  = 'Tambah Jenis Tenant';
         
@@ -161,6 +164,8 @@ class Jenis_tenant extends Dany_Controller
         $this->data['c_rsite_jenis']  = $this->Rsite_jenis_model->c_rsite_jenis();
         $this->data['c_id_bouwher'] = $c_id_bouwher;
         $this->data['action'] = base_url('jenis_tenant/edit/'.$id);
+
+        $this->data['subbreadcrumb'] = array('Jenis Tenant');
         $this->data['tombol'] = 'Edit';
         $this->data['title']  = 'Edit Jenis Tenant';
         
@@ -204,6 +209,8 @@ class Jenis_tenant extends Dany_Controller
 
         $this->data['c_rsite_jenis']  = $this->Rsite_jenis_model->c_rsite_jenis();
         $this->data['c_id_bouwher'] = $c_id_bouwher;
+
+        $this->data['subbreadcrumb'] = array('Jenis Tenant');
         $this->data['tombol'] = 'Detail';
         $this->data['title']  = 'Detail Jenis Tenant';
 

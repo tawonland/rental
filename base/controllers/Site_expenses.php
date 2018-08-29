@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Site_expenses extends Dany_Controller
+class Site_expenses extends Auth_Controller
 {
     public function __construct()
     {

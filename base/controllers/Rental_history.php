@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Rental_history extends Dany_Controller
+class Rental_history extends Auth_Controller
 {
     public function __construct()
     {

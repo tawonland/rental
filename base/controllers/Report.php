@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Report extends Dany_Controller
+class Report extends Auth_Controller
 {
     public function __construct()
     {
@@ -702,8 +702,7 @@ class Report extends Dany_Controller
 
             $ws->getColumnDimension('C')->setAutoSize(true);
             
-            $filter_operator = $this->input->post('operator');
-
+            $filter_operator = $this->input->get('operator');
             $this->db->order_by('sitename asc');
             
             if(!empty($filter_operator)){
@@ -738,7 +737,7 @@ class Report extends Dany_Controller
                 $ws->setCellValue('L'.$baris, $oprnilaisewa);
                 $ws->setCellValue('M'.$baris, $r->oprlamasewa);
                 $ws->setCellValue('N'.$baris, $r->oprsewaawal == NULL ? '' : to_dmY($r->oprsewaawal));
-                $ws->setCellValue('O'.$baris, 'Per '.$r->oprdurasi);
+                $ws->setCellValue('O'.$baris, (int)$r->oprdurasi > 0 ? 'Per '.$r->oprdurasi. ' bln': '');
                 $ws->setCellValue('P'.$baris, $r->outstdth);
                 $ws->setCellValue('Q'.$baris, $outstdsewaperthn);
                 $ws->setCellValue('R'.$baris, $outstdppn);

@@ -1,5 +1,5 @@
 <?php
-class Status_model extends Dany_Model {
+class Status_model extends App_Model {
 
     function status($err)
     {

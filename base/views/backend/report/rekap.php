@@ -121,7 +121,7 @@ var t = $('#mytable').DataTable({
     "serverSide": true,
     "ajax": {
         "url" : "{$url}{$controller}/data/rekap",
-        "type" : "POST",
+        "type" : "GET",
         "data" : function ( data ) {
                     data.operator = $('#operator').val();
                 }
@@ -136,7 +136,7 @@ var t = $('#mytable').DataTable({
         {"data": "sitestatus", "class": "text-center"}, 
         {"data": "sewatotal", "class": "text-right"}
     ],
-    "order": [[4, 'asc']],
+    "order": [[5, 'asc']],
     "rowCallback": function (row, data, iDisplayIndex) {
         var info = this.fnPagingInfo();
         var page = info.iPage;

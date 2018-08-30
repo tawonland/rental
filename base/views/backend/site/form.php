@@ -152,16 +152,9 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Site Available For Colo</label>
                                 <div class="col-sm-10">
-                                    <select name="site_available_for_colo" class="form-control aneh">
                                     <?php
-                                    $arr = array('available', 'not available');
-                                    foreach($arr as $v)
-                                    {
-                                        $selected = ($v == $data['site_available_for_colo'] ? ' selected' : '');
-                                        echo '<option value="'.ucwords($v).'"'.$selected.'>'.ucwords($v).'</option>';
-                                    }
-                                    ?>
-                                    </select>
+                                        echo formx_dropdown('site_available_for_colo', $data['arr_site_available_for_colo'], isset($data['site_available_for_colo']) ? $data['site_available_for_colo'] : '',$c_edit);
+                                    ?> 
                                 </div>
                             </div>
                         </div>

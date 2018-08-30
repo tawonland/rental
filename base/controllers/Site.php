@@ -6,6 +6,9 @@ class Site extends Auth_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->load->model('Rsite_model');
+
     }
     
     public function index()
@@ -44,6 +47,9 @@ class Site extends Auth_Controller
     
     public function add()
     {
+        
+        $tema['c_edit'] = TRUE;
+
         if($this->validasi())
         {
             $fields = $this->db->field_data('rsite');
@@ -95,7 +101,9 @@ class Site extends Auth_Controller
 			if($field->name == 'id_rsite') continue;
 			$tema['data'][$field->name] = set_value($field->name);
 		}
-        
+
+        $tema['data']['arr_site_available_for_colo'] = $this->Rsite_model->arr_site_available_for_colo();
+
         $tema['url']    = 'site/add';
         $tema['tombol'] = 'Tambah';
         $tema['title']  = 'Tambah Site';
@@ -105,6 +113,8 @@ class Site extends Auth_Controller
     
     public function edit($id = 0)
     {
+        $tema['c_edit'] = TRUE;
+
         $this->db->where('id1', $id);
         $cek = $this->db->get('rsite');
         if($cek->num_rows() != 1)
@@ -145,6 +155,8 @@ class Site extends Auth_Controller
             $tema['data'][$field->name] = ($row[$field->name] == '' || set_value($field->name)) ? set_value($field->name) : $row[$field->name];
 		}
         
+        $tema['data']['arr_site_available_for_colo'] = $this->Rsite_model->arr_site_available_for_colo();
+
         $tema['url']    = 'site/edit/'.$id;
         $tema['tombol'] = 'Edit';
         $tema['title']  = 'Edit Site';
@@ -154,6 +166,9 @@ class Site extends Auth_Controller
     
     public function detail($id = 0)
     {
+        
+        $tema['c_edit'] = FALSE;
+
         $this->db->where('id1', $id);
         $cek = $this->db->get('rsite');
         if($cek->num_rows() != 1)

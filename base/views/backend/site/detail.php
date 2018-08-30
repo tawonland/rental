@@ -220,16 +220,10 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Comm Case History</label>
                                 <div class="col-sm-8">
-                                    <select name="commcasehistory" class="form-control aneh" disabled>
                                     <?php
                                     $arr = array('Y'=>'Yes', 'N'=>'No');
-                                    foreach($arr as $k=>$v)
-                                    {
-                                        $selected = ($k == $data['commcasehistory'] ? ' selected' : '');
-                                        echo '<option value="'.$k.'">'.strtoupper($v).'</option>';
-                                    }
-                                    ?>
-                                    </select>
+                                        echo formx_dropdown(array('id' => 'commcasehistory', 'name' => 'commcasehistory'), $arr, isset($data['commcasehistory']) ? $data['commcasehistory'] : '',$c_edit);
+                                    ?>                                    
                                 </div>
                             </div>
                         </div>

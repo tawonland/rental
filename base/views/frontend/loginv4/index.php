@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('<?php echo base_url()?>assets/loginv4/images/bg-01.jpg');">
+		<div class="container-login100">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 
 				<?php echo form_open('login/ceklogin', array('class' => 'login100-form validate-form')); ?>

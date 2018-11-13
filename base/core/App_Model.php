@@ -19,6 +19,17 @@ class App_Model extends Dany_Model
         parent::__construct();
     }
 
+    function getConn($conn = ''){
+
+        if(empty($conn)){
+            return $this->load->database('default', TRUE);
+        }
+        else{
+            return $this->load->database($conn, TRUE);
+        }
+
+    }
+
     function getSchema() {
         global $conf;
 
@@ -38,6 +49,36 @@ class App_Model extends Dany_Model
             return $table;
         else
             return $schema . '.' . $table;
+    }
+
+    /**
+     * Mendapatkan key, bisa array, dari konstanta key
+     * @param boolean $array
+     * @return mixed
+     */
+    public static function getKey($array = false) {
+        return self::getArray(static::key, $array);
+    }
+
+    /**
+     * Mendapatkan nilai, bisa array
+     * @param string $key
+     * @param boolean $array
+     * @return mixed
+     */
+    public static function getArray($key, $array = false) {
+        $a_key = explode(',', $key);
+
+        foreach ($a_key as $k => $v)
+            $a_key[$k] = trim($v);
+
+        if (count($a_key) == 1) {
+            if ($array)
+                return array($key);
+            else
+                return $key;
+        } else
+            return $a_key;
     }
 
     /**
@@ -70,4 +111,49 @@ class App_Model extends Dany_Model
 
         return 'Data ' . ($err == '0' ? 'berhasil' : 'gagal') . ' ' .$aksi . (empty($msg) ? '' : ', ' . $msg);
     }
+
+    function getCountAll()
+    {
+
+        $this->db->select('COUNT(*) as countall');
+        $this->db->from($this->getTable());
+        
+        return $this->db->get()->row()->countall;
+
+    }
+
+    /*
+     * Mendapatkan baris data 
+     * @param string $conn
+     * @paramg string $column = column1, column2, ...
+     * @filter string $filter = id = '...'
+    */
+    function getRows($conn = '', $column = '', $filter = ''){
+        
+        $conn   = $this->getConn($conn);
+        $table  = $this->getTable();
+
+        $query  = $conn->get($table);
+
+        return $query->result_array();
+    }
+
+    // function getRowsIdAsKey($conn = '', $column = '', $filter = ''){
+        
+    //     $rs = $this->getRows($conn, $column, $filter);
+
+    //     $p_key = $this->getKey();
+
+    //     $rows = array();
+    //     foreach ($rs as $key => $value) {
+
+    //         $id = $value[$p_key];
+
+    //         $rows[$id] = 
+    //     }
+
+    //     return $rows;
+    // }
+
+    
 }

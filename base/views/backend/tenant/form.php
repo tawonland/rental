@@ -144,7 +144,7 @@
                                 <label class="col-sm-2 control-label">Tgl. RFI</label>
                                 <div class="col-sm-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Tgl. RFI" name="tglrfi" required="" value="<?php echo ($data['tglrfi'] == '' ? date('Y-m-d') : $data['tglrfi']); ?>" id="datepicker2">
+                                        <input type="text" class="form-control" placeholder="Tgl. RFI" name="tglrfi" required="" value="<?php echo $data['tglrfi']; ?>" id="datepicker2">
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button">
                                                 <i class="fa fa-calendar"></i>
@@ -170,7 +170,7 @@
                                 <label class="col-sm-4 control-label">Tgl. SPK</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Tgl. SPK" name="tglspk" required="" value="<?php echo ($data['tglspk'] == '' ? date('Y-m-d') : $data['tglspk']); ?>" id="datepicker2">
+                                        <input type="text" class="form-control" placeholder="Tgl. SPK" name="tglspk" required="" value="<?php echo $data['tglspk']; ?>" id="datepicker2">
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button">
                                                 <i class="fa fa-calendar"></i>
@@ -188,7 +188,7 @@
                                 <label class="col-sm-4 control-label">Lease Start</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Lease Start" name="leasestart" required="" value="<?php echo ($data['leasestart'] == '' ? date('Y-m-d') : $data['leasestart']); ?>" id="datepicker1">
+                                        <input type="text" class="form-control" placeholder="Lease Start" name="leasestart" required="" value="<?php echo $data['leasestart']; ?>" id="datepicker1">
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button">
                                                 <i class="fa fa-calendar"></i>
@@ -203,7 +203,7 @@
                                 <label class="col-sm-4 control-label">Lease End</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Lease End" name="leaseend" required="" value="<?php echo ($data['leaseend'] == '' ? date('Y-m-d') : $data['leasestart']); ?>" id="datepicker2">
+                                        <input type="text" class="form-control" placeholder="Lease End" name="leaseend" required="" value="<?php echo $data['leaseend']; ?>" id="datepicker2">
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button">
                                                 <i class="fa fa-calendar"></i>
@@ -304,7 +304,7 @@ $controller = $this->router->class;
 $js = <<<EOD
 $('#datepicker1, #datepicker2').datepicker({
     autoclose: true,
-    format: 'yyyy-mm-dd'
+    format: 'dd-mm-yyyy'
 });
 $('.jenis').on('change', function(e){
     var val = $('.jenis option:selected').val();

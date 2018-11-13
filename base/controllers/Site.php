@@ -68,6 +68,9 @@ class Site extends Auth_Controller
                 
                 $fields = $this->db->field_data('rsite_sewa');
                 $kolom = array();
+                
+                $ar_typeDate = array('leasestart', 'leaseend');
+
                 foreach ($fields as $field)
                 {
                     if($field->name == 'id1') continue;
@@ -76,9 +79,17 @@ class Site extends Auth_Controller
                         $kolom['id_rsite'] = $idnya;
                         continue;
                     }
-                    $kolom[$field->name] = $this->input->post($field->name, true);
+                    
+                    $post = $this->input->post($field->name, true);
+
+                    if(in_array($field->name, $ar_typeDate))
+                    {
+                        $post = to_dmY($post,'-');
+                    }
+
+                    $kolom[$field->name] = $post;
                 }
-                
+
                 $query = $this->db->insert('rsite_sewa', $kolom);
                 
                 $this->session->set_flashdata('success', 'Data berhasil ditambah');
@@ -101,6 +112,9 @@ class Site extends Auth_Controller
 			if($field->name == 'id_rsite') continue;
 			$tema['data'][$field->name] = set_value($field->name);
 		}
+
+        $tema['data']['leasestart'] = date('d-m-Y');
+        $tema['data']['leaseend'] = date('d-m-Y');
 
         $tema['data']['arr_site_available_for_colo'] = $this->Rsite_model->arr_site_available_for_colo();
 

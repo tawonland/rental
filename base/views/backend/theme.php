@@ -80,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <!-- Logo -->
                     <div class="page-logo">
                         <a href="<?php echo site_url('/../gaia/index.php')?>">
-                            <img src="<?php echo base_url()?>assets/img/logo.png" alt="logo" class="logo-default" /> </a>
+                            <img src="<?php echo base_url()?>assets/img/pt-citra-gaia.png" alt="logo" class="logo-default" /> </a>
                         <div class="menu-toggler sidebar-toggler">
                             <span></span>
                         </div>

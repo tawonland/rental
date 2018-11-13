@@ -70,6 +70,9 @@ class Rental_history extends Auth_Controller
         {
             $fields = $this->db->field_data('rsite_sewa');
             $kolom = array();
+
+            $ar_typeDate = array('leasestart', 'leaseend');
+
             foreach ($fields as $field)
             {
                 if($field->name == 'id1') continue;
@@ -78,7 +81,15 @@ class Rental_history extends Auth_Controller
                     $kolom[$field->name] = $tmp->id1;
                     continue;
                 }
-                $kolom[$field->name] = $this->input->post($field->name, true);
+
+                $post = $this->input->post($field->name, true);
+
+                if(in_array($field->name, $ar_typeDate))
+                {
+                    $post = to_dmY($post,'-');
+                }
+
+                $kolom[$field->name] = $post;
             }
             
             $query = $this->db->insert('rsite_sewa', $kolom);
@@ -101,6 +112,9 @@ class Rental_history extends Auth_Controller
 			if($field->name == 'id_rsite') continue;
 			$tema['data'][$field->name] = set_value($field->name);
 		}
+
+        $tema['data']['leasestart'] = date('d-m-Y');
+        $tema['data']['leaseend'] = date('d-m-Y');
         
         $tema['url']    = 'rental_history/add/'.$id;
         $tema['tombol'] = 'Tambah';
@@ -132,6 +146,9 @@ class Rental_history extends Auth_Controller
         {
             $fields = $this->db->field_data('rsite_sewa');
             $kolom = array();
+
+            $ar_typeDate = array('leasestart', 'leaseend');
+
             foreach ($fields as $field)
             {
                 if($field->name == 'id1') continue;
@@ -140,7 +157,15 @@ class Rental_history extends Auth_Controller
                     $kolom[$field->name] = $tmp->id1;
                     continue;
                 }
-                $kolom[$field->name] = $this->input->post($field->name, true);
+                $post = $this->input->post($field->name, true);
+
+                if(in_array($field->name, $ar_typeDate))
+                {
+                    $post = to_dmY($post,'-');
+                }
+
+                $kolom[$field->name] = $post;
+
             }
             
             $this->db->where('id1', $id);
@@ -164,6 +189,9 @@ class Rental_history extends Auth_Controller
 			if($field->name == 'id1') continue;
             $tema['data'][$field->name] = ($row[$field->name] == '' || set_value($field->name)) ? set_value($field->name) : $row[$field->name];
 		}
+
+        $tema['data']['leasestart'] = date('d-m-Y');
+        $tema['data']['leaseend'] = date('d-m-Y');
         
         $tema['url']    = 'rental_history/edit/'.$idx.'/'.$id;
         $tema['tombol'] = 'Edit';

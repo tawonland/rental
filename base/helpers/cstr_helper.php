@@ -11,19 +11,6 @@ function to_dmY($tgl = '', $delimiter = '/')
     return $y[2].$delimiter.$y[1].$delimiter.$y[0];
 }
 
-function to_money($str = '0'){
-    return number_format($str, '2', '.', ',');
-}
-
-function status_expenses(){
-
-    $status = array();
-    $status[0] = 'Belum Realisasi';
-    $status[1] = 'Sudah Realisasi';
-    
-    return $status;
-}
-
 function tgl_indo($tgl = '')
 {
     if (empty($tgl)){
@@ -59,6 +46,19 @@ function tgl_indo($tgl = '')
     }
 
     return $y[2].' '.$bulan[(int)$y[1]].' '.$y[0];
+}
+
+function to_money($str = '0'){
+    return number_format($str, '2', '.', ',');
+}
+
+function status_expenses(){
+
+    $status = array();
+    $status[0] = 'Belum Realisasi';
+    $status[1] = 'Sudah Realisasi';
+    
+    return $status;
 }
 
 function arr_belumsudah()

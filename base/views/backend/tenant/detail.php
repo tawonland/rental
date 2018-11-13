@@ -171,7 +171,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Lease Start</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="nospk" value="<?php echo $this->apps->tgl_indo($data['leasestart']); ?>" class="form-control aneh" placeholder="No. SPK" disabled>
+                                    <input type="text" name="leasestart" value="<?php echo $this->apps->tgl_indo($data['leasestart']); ?>" class="form-control aneh" placeholder="No. SPK" disabled>
                                 </div>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Lease End</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="nospk" value="<?php echo $this->apps->tgl_indo($data['leasestart']); ?>" class="form-control aneh" placeholder="No. SPK" disabled>
+                                    <input type="text" name="leaseend" value="<?php echo $this->apps->tgl_indo($data['leaseend']); ?>" class="form-control aneh" placeholder="No. SPK" disabled>
                                 </div>
                             </div>
                         </div>

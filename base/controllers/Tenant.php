@@ -78,6 +78,9 @@ class Tenant extends Auth_Controller
 
             $fields = $this->db->field_data('rsite_penyewa');
             $kolom = array();
+
+            $ar_typeDate = array('tglspk', 'tglrfi', 'leasestart', 'leaseend');
+
             foreach ($fields as $field)
             {
                 if($field->name == 'id1') continue;
@@ -99,7 +102,14 @@ class Tenant extends Auth_Controller
                     $kolom[$field->name] = $tmp->id1;
                     continue;
                 }
-                $kolom[$field->name] = $this->input->post($field->name, true);
+
+                $post = $this->input->post($field->name, true);
+                if(in_array($field->name, $ar_typeDate))
+                {
+                    $post = to_dmY($post,'-');
+                }
+
+                $kolom[$field->name] = $post;
             }
             
             // start transactions
@@ -161,11 +171,19 @@ class Tenant extends Auth_Controller
 			$tema['data'][$field->name] = set_value($field->name);
 		}
 
+        $date = date('d-m-Y');
+
+        $tema['data']['tglspk']     = $date;
+        $tema['data']['tglrfi']     = $date;
+        $tema['data']['leasestart'] = $date;
+        $tema['data']['leaseend']  = $date;
+
         $tema['c_edit'] = TRUE;
         $tema['url']    = 'tenant/add/'.$id;
         $tema['tombol'] = 'Tambah';
         $tema['title']  = 'Tambah Penyewa';
         $tema['tema']   = 'tenant/form';
+
         $this->load->view('backend/theme', $tema);
     }
     
@@ -179,6 +197,7 @@ class Tenant extends Auth_Controller
             redirect('site');
         }
         $tema['site'] = $xcek->row();
+        $ar_typeDate = array('tglspk', 'tglrfi', 'leasestart', 'leaseend');
 
         $this->db->where('id1', $id);
         $cek = $this->db->get('rsite_penyewa');
@@ -213,7 +232,15 @@ class Tenant extends Auth_Controller
                     $kolom[$field->name] = $tmp->id1;
                     continue;
                 }
-                $kolom[$field->name] = $this->input->post($field->name, true);
+
+                $post = $this->input->post($field->name, true);
+
+                if(in_array($field->name, $ar_typeDate))
+                {
+                    $post = to_dmY($post,'-');
+                }
+
+                $kolom[$field->name] = $post;
             }
             
             $this->db->where('id1', $id);
@@ -232,14 +259,20 @@ class Tenant extends Auth_Controller
         
         $row = $cek->row_array();
         $fields = $this->db->field_data('rsite_penyewa');
+        
 		foreach ($fields as $field)
 		{
 			if($field->name == 'id1') continue;
 			//if($field->name == 'id_bouwherr') continue;
 			if($field->name == 'operator') continue;
             $tema['data'][$field->name] = ($row[$field->name] == '' || set_value($field->name)) ? set_value($field->name) : $row[$field->name];
-		}
-        
+		  
+            if(in_array($field->name, $ar_typeDate))
+            {
+                $tema['data'][$field->name] = to_dmY($row[$field->name],'-');
+            }
+        }
+       
         $tema['c_edit'] = TRUE;
         $tema['url']    = 'tenant/edit/'.$idx.'/'.$id;
         $tema['tombol'] = 'Edit';

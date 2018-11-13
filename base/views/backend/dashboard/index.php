@@ -11,7 +11,7 @@
                     <i class="fa fa-circle"></i>
                     <span><?php echo $value; ?></span>
                 </li>
-                <?
+                <?php
             }
         }
         ?>
@@ -37,6 +37,22 @@
             </div>
         </a>
     </div>
+    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+            <div class="visual">
+                <i class="fa fa-user"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="1349"><?php echo $total_tower?></span>
+                </div>
+                <div class="desc"> Total Tower</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-lg-8 col-xs-12 col-sm-12">
         <div class="portlet light bordered">
             <div class="portlet-title">
@@ -52,6 +68,7 @@
                             <th>Site</th>                                                                 
                             <th>City</th>                                                                 
                             <th>Jumlah Tenant</th>                                                                 
+                            <th>Nama Tenant</th>                                                                 
                         </tr>
                     </thead>
                 </table>            
@@ -137,7 +154,8 @@ var t3 = $('#tableJmlTenantPersite').DataTable({
         {"data": "DT_RowId", "class": "text-center", "orderable": false},        
         {"data": "site", "class": "text-left"},
         {"data": "city", "class": "text-left"},
-        {"data": "jml_tenant", "class": "text-center"}
+        {"data": "jml_tenant", "class": "text-center"},
+        {"data": "nama_tenant", "class": "text-left"}
 
         ],
     "order": [[3, 'desc']],
@@ -216,4 +234,3 @@ EOD;
 
 $this->apps->set_js($js);
 ?>
-

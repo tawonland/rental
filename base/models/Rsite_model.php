@@ -1,6 +1,8 @@
 <?php
 class Rsite_model extends App_Model {
 
+    CONST TABLE = 'rsite';
+
     function arr_site_available_for_colo()
     {
         $variable = array('Available', 'Not Available', 'Full');
@@ -13,4 +15,5 @@ class Rsite_model extends App_Model {
         return $data;
     }
 
+    
 }

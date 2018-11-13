@@ -258,7 +258,7 @@
                                 <label class="col-sm-4 control-label">Lease Start</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Lease Start" name="leasestart" required="" value="<?php echo ($data['leasestart'] == '' ? date('Y-m-d') : $data['leasestart']); ?>" id="datepicker1">
+                                        <input type="text" class="form-control" placeholder="Lease Start" name="leasestart" required="" value="<?php echo $data['leasestart']; ?>" id="datepicker1" autocomplete="off">
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button">
                                                 <i class="fa fa-calendar"></i>
@@ -273,7 +273,7 @@
                                 <label class="col-sm-4 control-label">Lease End</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Lease End" name="leaseend" required="" value="<?php echo ($data['leaseend'] == '' ? date('Y-m-d') : $data['leasestart']); ?>" id="datepicker2">
+                                        <input type="text" class="form-control" placeholder="Lease End" name="leaseend" required="" value="<?php echo $data['leaseend']; ?>" id="datepicker2" autocomplete="off">
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button">
                                                 <i class="fa fa-calendar"></i>
@@ -319,7 +319,7 @@ $controller = $this->router->class;
 $js = <<<EOD
 $('#datepicker1, #datepicker2').datepicker({
     autoclose: true,
-    format: 'yyyy-mm-dd'
+    format: 'dd-mm-yyyy'
 });
 
 EOD;

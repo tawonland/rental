@@ -19,10 +19,14 @@ class Dashboard extends Auth_Controller
         $this->data['noteInfo'] = 'Data '.$this->data['title'];
 
         $this->load->model('Rsite_penyewa_model');
+        $this->load->model('Rsite_model');
 
-        $total_tenant = $this->Rsite_penyewa_model->getTotalTenant();
+        $total_tenant   = $this->Rsite_penyewa_model->getTotalTenant();
+        $total_tower    = $this->Rsite_model->getCountAll();
 
         $this->data['total_tenant'] = $total_tenant;
+        $this->data['total_tower']  = $total_tower;
+
         $this->load->view('backend/theme', $this->data);
     }
 	
@@ -35,15 +39,97 @@ class Dashboard extends Auth_Controller
             
             $this->datatables->select('
                 a.id1 as DT_RowId, 
-                CONCAT(\'<strong>ID:</strong> \', a.siteid, \'<br><strong>\', a.sitename, \'</strong>\') as site,
+                a.siteid,
+                a.sitename,
                 a.city,
                 b.jml_tenant
                 ');
+            
             $this->datatables->from('rsite a');
             $this->datatables->join('v_rsite_jml_tenant b', 'a.id1 = b.id_rsite', 'LEFT');
             
-            echo $this->datatables->generate();
+            $data = $this->datatables->generate();
+
+            $data = json_decode($data,TRUE);
+
+            $rs_data = $data['data'];
+
+            // // echo '<pre>';
+            // // print_r($rs_data);
+            // // echo '</pre>';
+            // // die();
+
+            // //getDataTenant
+            $this->load->model('Rsite_penyewa_model');
+            $rs_tenant = $this->Rsite_penyewa_model->getRowsFkAsKey();
+
+            $rows = array();
+            foreach ($rs_data as $key => $v) {
+                
+                $id_rsite = $v['DT_RowId'];
+
+                $rows[$key] = $v;
+                $rows[$key]['site'] = '<a href="'.base_url('tenant/index/'.$id_rsite).'">';
+                $rows[$key]['site'] .= '<strong>ID:</strong> ' . $v['siteid'] . '<br><strong>' . $v['sitename']. '</strong>';
+                $rows[$key]['site'] .= '</a>';
+
+                $a_tenant = array();
+                if(isset($rs_tenant[$id_rsite])){
+                    foreach ($rs_tenant[$id_rsite] as $k_rsite => $v_rsite) {
+                        $a_tenant[] = $v_rsite['operator'];
+                    }
+                }
+
+                $list_tenant = '';
+                
+                if($a_tenant){
+                    $list_tenant .= '<ul><li>';
+                    $list_tenant .= implode('</li><li>', $a_tenant);
+                    $list_tenant .= '</li></ul>';
+                }                
+
+                $rows[$key]['nama_tenant'] = $list_tenant;
+            }
+
+            $data['data'] = $rows;
+            
+            echo json_encode($data);
+
+
         }
+    }
+
+    public function jml_tenant_persitex($id = 0)
+    {
+        
+        $this->load->library('datatables');
+
+        $requestData    = $_REQUEST;
+        $totalData      = 5;
+
+        $totalFiltered  = $totalData;
+
+        $data = array();
+        for ($i=0; $i < 5 ; $i++) { 
+            $nestedData[] = '1';
+            $nestedData[] = '2';
+            $nestedData[] = '3';
+            $nestedData[] = '4';
+            $nestedData[] = '5';
+            
+            $data[] = $nestedData;
+        }
+        
+
+        $json_data = array(
+            "draw"            => intval( $requestData['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+            "recordsTotal"    => intval( $totalData ),  // total number of records
+            "recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
+            "data"            => $data   // total data array
+            );
+        //print_r($data);
+        echo json_encode($json_data);
+
     }
 
 	public function tgl_invoice_blm_bayar($id = 0)

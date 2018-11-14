@@ -54,11 +54,6 @@ class Dashboard extends Auth_Controller
 
             $rs_data = $data['data'];
 
-            // // echo '<pre>';
-            // // print_r($rs_data);
-            // // echo '</pre>';
-            // // die();
-
             // //getDataTenant
             $this->load->model('Rsite_penyewa_model');
             $rs_tenant = $this->Rsite_penyewa_model->getRowsFkAsKey();
@@ -99,39 +94,6 @@ class Dashboard extends Auth_Controller
         }
     }
 
-    public function jml_tenant_persitex($id = 0)
-    {
-        
-        $this->load->library('datatables');
-
-        $requestData    = $_REQUEST;
-        $totalData      = 5;
-
-        $totalFiltered  = $totalData;
-
-        $data = array();
-        for ($i=0; $i < 5 ; $i++) { 
-            $nestedData[] = '1';
-            $nestedData[] = '2';
-            $nestedData[] = '3';
-            $nestedData[] = '4';
-            $nestedData[] = '5';
-            
-            $data[] = $nestedData;
-        }
-        
-
-        $json_data = array(
-            "draw"            => intval( $requestData['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
-            "recordsTotal"    => intval( $totalData ),  // total number of records
-            "recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
-            "data"            => $data   // total data array
-            );
-        //print_r($data);
-        echo json_encode($json_data);
-
-    }
-
 	public function tgl_invoice_blm_bayar($id = 0)
 	{
 		if (!$this->input->is_ajax_request()) {
@@ -163,16 +125,37 @@ class Dashboard extends Auth_Controller
             $this->load->library('datatables');
             
             $this->datatables->select('
-                a.id1 as DT_RowId, 
-                CONCAT(\'<strong>ID:</strong> \', b.siteid, \'<br><strong>\', b.sitename, \'</strong>\') as site,
-                b.city,
-                DATE_FORMAT(a.leaseend, \'%d-%m-%Y\') as leaseend
+                a.id1 as DT_RowId, a.siteid, a.sitename, a.city,  b.operator, YEAR(b.leasestart) AS th_leasestart, YEAR(b.leaseend) AS th_leasesend
                 ');
-            $this->datatables->from('rsite_sewa a');
-            $this->datatables->join('rsite b', 'a.id_rsite = b.id1');
-            $this->datatables->where('a.leaseend >=', date('Y-m-d'));
+
+            $this->datatables->from('rsite a');
+            $this->datatables->join('rsite_penyewa b', 'a.id1 = b.id_rsite');
+            $this->datatables->where('b.leaseend >=', date('Y-m-d'));
             
-            echo $this->datatables->generate();
+            $data = $this->datatables->generate();
+
+            $data = json_decode($data,TRUE);
+
+            $rs_data = $data['data'];
+
+            $rows = array();
+            foreach ($rs_data as $key => $v) {
+                $rows[$key] = $v;
+                $rows[$key]['site']  = '<strong>ID:</strong> ' . $v['siteid'] . '<br><strong>' . $v['sitename']. '</strong>';
+                
+                $th_leasestart = $v['th_leasestart'];
+                $th_leasesend  = $v['th_leasesend'];
+                
+                $rows[$key]['lease'] = ' <span class = "pull-left">' . $v['operator'] . '</span>';
+                $rows[$key]['lease'] .= ' <span class = "pull-right"> '.$th_leasestart . ' s/d ' . $th_leasesend . '</span>';
+            }
+
+        
+            $data['data'] = $rows;
+
+
+
+            echo json_encode($data);
         }
     }
             

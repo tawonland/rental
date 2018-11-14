@@ -118,7 +118,7 @@
                             <th style="text-align: center;width: 40px;">No</th>
                             <th>Site</th>                                                                 
                             <th>City</th>                                                                 
-                            <th>Lease End</th>                                                                 
+                            <th>Lease</th>                                                                 
                         </tr>
                     </thead>
                 </table>            
@@ -212,10 +212,10 @@ var t2 = $('#tableSiteLeaseEnd').DataTable({
         {"data": "DT_RowId", "class": "text-center", "orderable": false},        
         {"data": "site", "class": "text-left"},
         {"data": "city", "class": "text-left"},
-        {"data": "leaseend", "class": "text-center"}
+        {"data": "lease", "class": "text-center"}
 
         ],
-    "order": [[3, 'asc']],
+   
     "rowCallback": function (row, data, iDisplayIndex) {
         var info = this.fnPagingInfo();
         var page = info.iPage;
